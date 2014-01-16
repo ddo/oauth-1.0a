@@ -6,7 +6,8 @@ describe("OAuth", function() {
         consumer: {
             public: 'xvz1evFS4wEEPTGEFPHBog',
             secret: 'kAcSOqF21Fu85e7zjz7ZN2U4ZRhfV3WpwPAoE3Z7kBw'
-        }
+        },
+        signature_method: 'HMAC-SHA1'
     });
 
     OAuth.prototype.getTimeStamp = function() {
@@ -59,7 +60,7 @@ describe("OAuth", function() {
         
     describe("#getSignature", function() {
         it("should be equal to Twitter example", function() {
-            expect(oauth.getSignature(request, token.secret, oauth_data)).to.equal('tnnArxj06cWHq44gCs1OSKk/jLY');
+            expect(oauth.getSignature(request, token.secret, oauth_data)).to.equal('tnnArxj06cWHq44gCs1OSKk/jLY=');
         });
     });
 
@@ -74,14 +75,14 @@ describe("OAuth", function() {
                 oauth_token: '370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb',
                 status: 'Hello Ladies + Gentlemen, a signed OAuth request!',
                 include_entities: 'true',
-                oauth_signature: 'tnnArxj06cWHq44gCs1OSKk/jLY'
+                oauth_signature: 'tnnArxj06cWHq44gCs1OSKk/jLY='
             });
         });
     });
 
     describe("#toHeader", function() {
         it("should be equal to Twitter example", function() {
-            expect(oauth.toHeader(oauth.authorizer(request, token))).to.have.property('Authorization', 'OAuth oauth_consumer_key="xvz1evFS4wEEPTGEFPHBog", oauth_nonce="kYjzVBB8Y0ZFabxSWbWovY3uYSQ2pTgmZeNu2VS4cg", oauth_signature="tnnArxj06cWHq44gCs1OSKk%2FjLY", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1318622958", oauth_token="370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb", oauth_version="1.0"');
+            expect(oauth.toHeader(oauth.authorizer(request, token))).to.have.property('Authorization', 'OAuth oauth_consumer_key="xvz1evFS4wEEPTGEFPHBog", oauth_nonce="kYjzVBB8Y0ZFabxSWbWovY3uYSQ2pTgmZeNu2VS4cg", oauth_signature="tnnArxj06cWHq44gCs1OSKk%2FjLY%3D", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1318622958", oauth_token="370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb", oauth_version="1.0"');
         });
     });
 });
