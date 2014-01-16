@@ -1,0 +1,21 @@
+{
+  "name": "oauth-1.0a",
+  "version": "0.0.1",
+  "description": "OAuth 1.0a Request Authorizer",
+  "scripts": {
+    "test": "mocha",
+    "start": "clear && node index"
+  },
+  "repository": "https://github.com/joeddo/oauth-1.0a.git",
+  "keywords": [
+    "OAuth",
+    "1.0a",
+    "OAuth1.0a"
+  ],
+  "author": "Ddo",
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "~1.17.0",
+    "chai": "~1.8.1"
+  }
+}
