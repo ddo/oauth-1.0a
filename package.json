@@ -1,16 +1,17 @@
 {
   "name": "oauth-1.0a",
-  "version": "0.0.1",
-  "description": "OAuth 1.0a Request Authorizer",
+  "version": "0.0.2",
+  "description": "OAuth 1.0a Request Authorizer for Node and Browser",
   "scripts": {
     "test": "mocha",
     "start": "clear && node index"
   },
   "repository": "https://github.com/joeddo/oauth-1.0a.git",
   "keywords": [
-    "OAuth",
+    "oauth",
     "1.0a",
-    "OAuth1.0a"
+    "oauth1.0a",
+    "authorize"
   ],
   "author": "Ddo",
   "license": "MIT",
