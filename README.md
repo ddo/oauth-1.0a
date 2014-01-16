@@ -35,7 +35,7 @@ oauth.toHeader(oauth_data);
     $ npm install oauth-1.0a
     
 ###Browser
-Download oauth-1.0a.js [here](https://github.com/joeddo/oauth-1.0a)
+Download oauth-1.0a.js [here](https://github.com/joeddo/oauth-1.0a/blob/master/lib/oauth-1.0a.js)
 
     <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha1.js"></script>
     <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-base64-min.js"></script>
