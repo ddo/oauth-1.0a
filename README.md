@@ -1,7 +1,7 @@
 oauth-1.0a
 ==========
 
-OAuth 1.0a Request Authorizer for Node and Browser
+OAuth 1.0a Request Authorizer for **Node** and **Browser**
 
 Send OAuth request with your favorite HTTP client ([request](https://github.com/mikeal/request), [jQuery.ajax](http://api.jquery.com/jQuery.ajax/)...)
 
@@ -95,7 +95,6 @@ request({
 ```
 
 Or if you want to send OAuth data as header
-Call a request
 
 ```js
 request({
@@ -153,7 +152,6 @@ $.ajax({
 ```
 
 Or if you want to send OAuth data as header
-Call a request
 
 ```js
 $.ajax({
@@ -165,9 +163,10 @@ $.ajax({
 	//process your data here
 });
 ```
-##Notes:
+##Notes
 
-####If you want a easier way to handle your OAuth request. Please visit [SimpleOAuth](https://github.com/joeddo/SimpleOAuth), it's a wrapper of this project, some features:
+**If you want a easier way to handle your OAuth request. Please visit [SimpleOAuth](https://github.com/joeddo/SimpleOAuth), it's a wrapper of this project, some features:**
+
 * Request Token method
 * Get Authorize link method
 * Access Token method
