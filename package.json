@@ -1,7 +1,7 @@
 {
   "name": "oauth-1.0a",
   "version": "0.0.2",
-  "description": "OAuth 1.0a Request Authorizer for Node and Browser",
+  "description": "OAuth 1.0a Request Authorizer for Node and Browser. Send OAuth request with your favorite HTTP client (request, jQuery.ajax...)",
   "scripts": {
     "test": "mocha",
     "start": "clear && node index"
