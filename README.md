@@ -8,9 +8,10 @@ OAuth 1.0a Request Authorizer for **Node** and **Browser**
 
 Send OAuth request with your favorite HTTP client ([request](https://github.com/mikeal/request), [jQuery.ajax](http://api.jquery.com/jQuery.ajax/)...)
 
+No more headache about OAuth 1.0a's stuff or "oauth_consumer_key, oauth_nonce, oauth_signature...." parameters, just use your familiar HTTP client to send OAuth requests.
+
 ## Quick Start
 
-Setup
 ```js
 var oauth = new OAuth({
     consumer: {
@@ -97,7 +98,7 @@ request({
 });
 ```
 
-Or if you want to send OAuth data as header
+Or if you want to send OAuth data in request's header
 
 ```js
 request({
@@ -111,6 +112,8 @@ request({
 ```
 
 ###Work with [jQuery.ajax](http://api.jquery.com/jQuery.ajax/) (Browser)
+
+**Caution:** please make sure you understand what happen when use OAuth protocol at client side [here](#client-side-usage-caution)
 
 Init
 ```js
@@ -154,7 +157,7 @@ $.ajax({
 });
 ```
 
-Or if you want to send OAuth data as header
+Or if you want to send OAuth data in request's header
 
 ```js
 $.ajax({
@@ -168,7 +171,7 @@ $.ajax({
 ```
 ##Notes
 
-**If you want a easier way to handle your OAuth request. Please visit [SimpleOAuth](https://github.com/joeddo/SimpleOAuth), it's a wrapper of this project, some features:**
+**If you want an easier way to handle your OAuth request. Please visit [SimpleOAuth](https://github.com/joeddo/SimpleOAuth), it's a wrapper of this project, some features:**
 
 * Request Token method
 * Get Authorize link method
@@ -197,6 +200,21 @@ $.ajax(simple_oauth.do({
 	//process your data here
 });
 ```
+
+##Client Side Usage Caution
+
+OAuth is based around allowing tools and websites to talk to each other.
+However, JavaScript running in web browsers is hampered by security restrictions that prevent code running on one website from accessing data stored or served on another.
+
+Before you start hacking, make sure you understand the limitations posed by cross-domain XMLHttpRequest.
+
+On the bright side, some platforms use JavaScript as their language, but enable the programmer to access other web sites. Examples include:
+
+* **Google/Firefox/Safari extensions**
+* **Google Gadgets**
+* **Microsoft Vista Sidebar**...
+
+For those platforms, this library should come in handy.
 
 ##Todo
 * RSA-SHA1 signature method
