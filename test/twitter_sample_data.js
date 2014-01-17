@@ -1,7 +1,7 @@
 expect = require('chai').expect;
 var OAuth = require('../');
 
-describe("OAuth", function() {
+describe("Twitter Sample", function() {
     var oauth = new OAuth({
         consumer: {
             public: 'xvz1evFS4wEEPTGEFPHBog',
