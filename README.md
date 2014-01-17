@@ -3,6 +3,7 @@ oauth-1.0a
 
 [![Dependencies](https://api.travis-ci.org/joeddo/oauth-1.0a.png)](https://travis-ci.org/joeddo/oauth-1.0a)
 [![Dependency Status](https://gemnasium.com/joeddo/oauth-1.0a.png)](https://gemnasium.com/joeddo/oauth-1.0a)
+[![NPM version](https://badge.fury.io/js/oauth-1.0a.png)](http://badge.fury.io/js/oauth-1.0a)
 
 OAuth 1.0a Request Authorizer for **Node** and **Browser**
 
