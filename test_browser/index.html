@@ -1,0 +1,32 @@
+<html>
+<head>
+	<title>Testing Page</title>
+
+	<!-- Testing dependencies -->
+	<link rel="stylesheet" href="vendor/mocha.css">
+
+</head>
+<body>
+	<div id="mocha"></div>
+
+	<!-- Testing dependencies -->
+	<script type="text/javascript" src='vendor/mocha.js'></script>
+	<script type="text/javascript" src='vendor/chai.js'></script>
+
+	<!-- Project dependencies -->
+	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha1.js"></script>
+	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-base64-min.js"></script>
+	<script type="text/javascript" src="../lib/oauth-1.0a.js"></script>
+	
+	<script>mocha.setup('bdd');</script>
+
+	<!-- Testing Files -->
+	<script src="../test/twitter_sample_data.js"></script>
+
+	<!-- Start -->
+	<script>
+		mocha.checkLeaks();
+		mocha.run();
+	</script>
+</body>
+</html>
