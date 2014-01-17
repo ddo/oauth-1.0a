@@ -1,6 +1,9 @@
 oauth-1.0a
 ==========
 
+[![Dependencies](https://api.travis-ci.org/joeddo/oauth-1.0a.png)](https://travis-ci.org/joeddo/oauth-1.0a)
+[![Dependencies](https://david-dm.org/joeddo/oauth-1.0a.png)](https://david-dm.org/joeddo/oauth-1.0a)
+
 OAuth 1.0a Request Authorizer for **Node** and **Browser**
 
 Send OAuth request with your favorite HTTP client ([request](https://github.com/mikeal/request), [jQuery.ajax](http://api.jquery.com/jQuery.ajax/)...)
@@ -178,7 +181,7 @@ Node.js:
 ```js
 request(simple_oauth.do({
     method: 'GET',
-    url: 'https://api.twitter.com/1.1/statuses/user_timeline.json',
+    url: 'https://api.twitter.com/1.1/statuses/user_timeline.json'
 }, function(error, response, body) {
 	//process your data here
 });
@@ -189,7 +192,7 @@ jQuery:
 ```js
 $.ajax(simple_oauth.do({
     method: 'GET',
-    url: 'https://api.twitter.com/1.1/statuses/user_timeline.json',
+    url: 'https://api.twitter.com/1.1/statuses/user_timeline.json'
 }.done(function(data) {
 	//process your data here
 });
