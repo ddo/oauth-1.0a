@@ -91,7 +91,7 @@ Call a request
 request({
 	url: request_data.url,
 	method: request_data.method,
-	data: oauth.authorizer(request_data, token)
+	form: oauth.authorizer(request_data, token)
 }, function(error, response, body) {
 	//process your data here
 });
@@ -103,8 +103,8 @@ Or if you want to send OAuth data as header
 request({
 	url: request_data.url,
 	method: request_data.method,
-	data: request_data.data,
-	header: oauth.toHeader(oauth.authorizer(request_data, token))
+	form: request_data.data,
+	headers: oauth.toHeader(oauth.authorizer(request_data, token))
 }, function(error, response, body) {
 	//process your data here
 });
