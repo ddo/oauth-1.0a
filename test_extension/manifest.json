@@ -1,0 +1,12 @@
+{
+	"name": "Testing Page",
+	"version": "1",
+	"description": "Testing Page",
+    "manifest_version": 2,
+	"permissions": [
+        "tabs",
+        "notifications",
+        "<all_urls>"
+	],
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+}
