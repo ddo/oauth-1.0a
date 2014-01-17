@@ -1,5 +1,12 @@
-expect = require('chai').expect;
-var OAuth = require('../');
+var expect;
+
+//Node.js
+if(typeof(module) !== 'undefined' && typeof(exports) !== 'undefined') {
+    expect = require('chai').expect;
+    var OAuth = require('../');
+} else { //Browser
+    expect = chai.expect;
+}
 
 describe("Twitter Sample", function() {
     var oauth = new OAuth({
@@ -10,11 +17,11 @@ describe("Twitter Sample", function() {
         signature_method: 'HMAC-SHA1'
     });
 
-    OAuth.prototype.getTimeStamp = function() {
+    oauth.getTimeStamp = function() {
         return 1318622958;
     };
 
-    OAuth.prototype.getNonce = function(length) {
+    oauth.getNonce = function(length) {
         return 'kYjzVBB8Y0ZFabxSWbWovY3uYSQ2pTgmZeNu2VS4cg';
     };
 
