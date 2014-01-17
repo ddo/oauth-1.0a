@@ -17,7 +17,8 @@
   "license": "MIT",
   "devDependencies": {
     "mocha": "~1.17.0",
-    "chai": "~1.8.1"
+    "chai": "~1.8.1",
+    "request": "~2.33.0"
   },
   "dependencies": {
     "crypto-js": "~3.1.2-2"
