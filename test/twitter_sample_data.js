@@ -71,9 +71,9 @@ describe("Twitter Sample", function() {
         });
     });
 
-    describe("#authorizer", function() {
+    describe("#authorize", function() {
         it("should be equal to Twitter example", function() {
-            expect(oauth.authorizer(request, token)).to.eql({
+            expect(oauth.authorize(request, token)).to.eql({
                 oauth_consumer_key: 'xvz1evFS4wEEPTGEFPHBog',
                 oauth_nonce: 'kYjzVBB8Y0ZFabxSWbWovY3uYSQ2pTgmZeNu2VS4cg',
                 oauth_signature_method: 'HMAC-SHA1',
@@ -89,7 +89,7 @@ describe("Twitter Sample", function() {
 
     describe("#toHeader", function() {
         it("should be equal to Twitter example", function() {
-            expect(oauth.toHeader(oauth.authorizer(request, token))).to.have.property('Authorization', 'OAuth oauth_consumer_key="xvz1evFS4wEEPTGEFPHBog", oauth_nonce="kYjzVBB8Y0ZFabxSWbWovY3uYSQ2pTgmZeNu2VS4cg", oauth_signature="tnnArxj06cWHq44gCs1OSKk%2FjLY%3D", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1318622958", oauth_token="370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb", oauth_version="1.0"');
+            expect(oauth.toHeader(oauth.authorize(request, token))).to.have.property('Authorization', 'OAuth oauth_consumer_key="xvz1evFS4wEEPTGEFPHBog", oauth_nonce="kYjzVBB8Y0ZFabxSWbWovY3uYSQ2pTgmZeNu2VS4cg", oauth_signature="tnnArxj06cWHq44gCs1OSKk%2FjLY%3D", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1318622958", oauth_token="370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb", oauth_version="1.0"');
         });
     });
 });

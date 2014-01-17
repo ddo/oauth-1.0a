@@ -1,7 +1,7 @@
 {
   "name": "oauth-1.0a",
   "version": "0.0.3",
-  "description": "OAuth 1.0a Request Authorizer for Node and Browser. Send OAuth request with your favorite HTTP client (request, jQuery.ajax...). No more headache about OAuth 1.0a's stuff or \"oauth_consumer_key, oauth_nonce, oauth_signature....\" parameters, just use your familiar HTTP client to send OAuth requests.",
+  "description": "OAuth 1.0a Request Authorization for Node and Browser. Send OAuth request with your favorite HTTP client (request, jQuery.ajax...). No more headache about OAuth 1.0a's stuff or \"oauth_consumer_key, oauth_nonce, oauth_signature....\" parameters, just use your familiar HTTP client to send OAuth requests.",
   "scripts": {
     "test": "mocha",
     "start": "clear && node index"

@@ -5,7 +5,7 @@ oauth-1.0a
 [![Dependency Status](https://gemnasium.com/joeddo/oauth-1.0a.png)](https://gemnasium.com/joeddo/oauth-1.0a)
 [![NPM version](https://badge.fury.io/js/oauth-1.0a.png)](http://badge.fury.io/js/oauth-1.0a)
 
-OAuth 1.0a Request Authorizer for **Node** and **Browser**
+OAuth 1.0a Request Authorization for **Node** and **Browser**
 
 Send OAuth request with your favorite HTTP client ([request](https://github.com/mikeal/request), [jQuery.ajax](http://api.jquery.com/jQuery.ajax/)...)
 
@@ -25,7 +25,7 @@ var oauth = new OAuth({
 
 Get OAuth request data then you can use with your http client easily :)
 ```js
-oauth.authorizer(request, token);
+oauth.authorize(request, token);
 ```
 
 Or if you want to get as a header key-value data
@@ -93,7 +93,7 @@ Call a request
 request({
 	url: request_data.url,
 	method: request_data.method,
-	form: oauth.authorizer(request_data, token)
+	form: oauth.authorize(request_data, token)
 }, function(error, response, body) {
 	//process your data here
 });
@@ -106,7 +106,7 @@ request({
 	url: request_data.url,
 	method: request_data.method,
 	form: request_data.data,
-	headers: oauth.toHeader(oauth.authorizer(request_data, token))
+	headers: oauth.toHeader(oauth.authorize(request_data, token))
 }, function(error, response, body) {
 	//process your data here
 });
@@ -152,7 +152,7 @@ Call a request
 $.ajax({
 	url: request_data.url,
 	type: request_data.method,
-	data: oauth.authorizer(request_data, token)
+	data: oauth.authorize(request_data, token)
 }).done(function(data) {
 	//process your data here
 });
@@ -165,7 +165,7 @@ $.ajax({
 	url: request_data.url,
 	type: request_data.method,
 	data: request_data.data,
-	header: oauth.toHeader(oauth.authorizer(request_data, token))
+	header: oauth.toHeader(oauth.authorize(request_data, token))
 }).done(function(data) {
 	//process your data here
 });
