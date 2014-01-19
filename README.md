@@ -11,7 +11,7 @@ Send OAuth request with your favorite HTTP client ([request](https://github.com/
 
 No more headache about OAuth 1.0a's stuff or "oauth_consumer_key, oauth_nonce, oauth_signature...." parameters, just use your familiar HTTP client to send OAuth requests.
 
-I tested on some popular OAuth 1.0a services:
+Tested on some popular OAuth 1.0a services:
 
 * Twitter
 * Flickr
