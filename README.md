@@ -11,7 +11,7 @@ Send OAuth request with your favorite HTTP client ([request](https://github.com/
 
 No more headache about OAuth 1.0a's stuff or "oauth_consumer_key, oauth_nonce, oauth_signature...." parameters, just use your familiar HTTP client to send OAuth requests.
 
-Tested on some popular OAuth 1.0a services:
+I tested on some popular OAuth 1.0a services:
 
 * Twitter
 * Flickr
@@ -180,6 +180,13 @@ $.ajax({
 ##Notes
 
 * Some OAuth requests without token use ``.authorize(request_data)`` instead of ``.authorize(request_data, {})``
+
+* **If you want an easier way to handle your OAuth request. Please visit [SimpleOAuth](https://github.com/ddo/SimpleOAuth), it's a wrapper of this project, some features:**
+	* Request Token method
+	* Get Authorize link method
+    * Access Token method
+    * OAuth 2.0 support
+    * Simpler syntax:
  
 Node.js:
 
