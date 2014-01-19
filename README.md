@@ -213,7 +213,7 @@ On the bright side, some platforms use JavaScript as their language, but enable 
 
 * **Google/Firefox/Safari extensions**
 * **Google Gadgets**
-* **Microsoft Vista Sidebar**...
+* **Microsoft Sidebar**...
 
 For those platforms, this library should come in handy.
 
