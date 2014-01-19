@@ -11,6 +11,13 @@ Send OAuth request with your favorite HTTP client ([request](https://github.com/
 
 No more headache about OAuth 1.0a's stuff or "oauth_consumer_key, oauth_nonce, oauth_signature...." parameters, just use your familiar HTTP client to send OAuth requests.
 
+I tested on some popular OAuth 1.0a services:
+
+* Twitter
+* Flickr
+* Bitbucket
+* Linkedin
+
 ## Quick Start
 
 ```js
@@ -79,7 +86,7 @@ var request_data = {
 };
 ```
 
-Your token
+Your token (optional for some requests)
 ```js
 var token = {
     public: '370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb',
@@ -138,7 +145,7 @@ var request_data = {
 };
 ```
 
-Your token
+Your token (optional for some requests)
 ```js
 var token = {
     public: '370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb',
@@ -172,21 +179,26 @@ $.ajax({
 ```
 ##Notes
 
-**If you want an easier way to handle your OAuth request. Please visit [SimpleOAuth](https://github.com/ddo/SimpleOAuth), it's a wrapper of this project, some features:**
+* Some OAuth requests without token use ``.authorize(request_data)`` instead of ``.authorize(request_data, {})``
 
-* Request Token method
-* Get Authorize link method
-* Access Token method
-* OAuth 2.0 support
-* Simpler syntax:
-
+* **If you want an easier way to handle your OAuth request. Please visit [SimpleOAuth](https://github.com/ddo/SimpleOAuth), it's a wrapper of this project, some features:**
+	* Request Token method
+	* Get Authorize link method
+    * Access Token method
+    * OAuth 2.0 support
+    * Simpler syntax:
+ 
 Node.js:
 
 ```js
-request(simple_oauth.do({
-    method: 'GET',
-    url: 'https://api.twitter.com/1.1/statuses/user_timeline.json'
-}, function(error, response, body) {
+request(oauth.requestsToken(), function(error, response, body) {
+	//process your data here
+});
+```
+```js
+request(oauth.accessToken({
+	oauth_verifier: '<verifier>'
+}), function(error, response, body) {
 	//process your data here
 });
 ```
@@ -194,10 +206,14 @@ request(simple_oauth.do({
 jQuery:
 
 ```js
-$.ajax(simple_oauth.do({
-    method: 'GET',
-    url: 'https://api.twitter.com/1.1/statuses/user_timeline.json'
-}.done(function(data) {
+$.ajax(oauth.requestsToken()).done(function(data) {
+	//process your data here
+});
+```
+```js
+$.ajax(oauth.accessToken({
+	oauth_verifier: '<verifier>'
+})).done(function(data) {
 	//process your data here
 });
 ```
@@ -219,6 +235,9 @@ For those platforms, this library should come in handy.
 
 ##Todo
 * RSA-SHA1 signature method
+
+##[Changelog](https://github.com/ddo/oauth-1.0a/wiki/Changelog)
+
 
 ##Depencies
 * Browser: [crypto-js](https://code.google.com/p/crypto-js/)
