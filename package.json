@@ -1,12 +1,12 @@
 {
   "name": "oauth-1.0a",
   "version": "0.0.4",
-  "description": "OAuth 1.0a Request Authorization for Node and Browser. Send OAuth request with your favorite HTTP client (request, jQuery.ajax...). No more headache about OAuth 1.0a's stuff or \"oauth_consumer_key, oauth_nonce, oauth_signature....\" parameters, just use your familiar HTTP client to send OAuth requests.",
+  "description": "OAuth 1.0a Request Authorization for Node and Browser.",
   "scripts": {
     "test": "mocha",
     "start": "clear && node index"
   },
-  "repository": "https://github.com/joeddo/oauth-1.0a.git",
+  "repository": "https://github.com/ddo/oauth-1.0a.git",
   "keywords": [
     "oauth",
     "1.0a",

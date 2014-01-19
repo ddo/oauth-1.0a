@@ -1,8 +1,8 @@
 oauth-1.0a
 ==========
 
-[![Dependencies](https://api.travis-ci.org/joeddo/oauth-1.0a.png)](https://travis-ci.org/joeddo/oauth-1.0a)
-[![Dependency Status](https://gemnasium.com/joeddo/oauth-1.0a.png)](https://gemnasium.com/joeddo/oauth-1.0a)
+[![Dependencies](https://api.travis-ci.org/ddo/oauth-1.0a.png)](https://travis-ci.org/ddo/oauth-1.0a)
+[![Dependency Status](https://david-dm.org/ddo/oauth-1.0a.png?theme=shields.io)](https://david-dm.org/ddo/oauth-1.0a)
 [![NPM version](https://badge.fury.io/js/oauth-1.0a.png)](http://badge.fury.io/js/oauth-1.0a)
 
 OAuth 1.0a Request Authorization for **Node** and **Browser**
@@ -40,7 +40,7 @@ oauth.toHeader(oauth_data);
     $ npm install oauth-1.0a
     
 ###Browser
-Download oauth-1.0a.js [here](https://github.com/joeddo/oauth-1.0a/blob/master/lib/oauth-1.0a.js)
+Download oauth-1.0a.js [here](https://github.com/ddo/oauth-1.0a/blob/master/lib/oauth-1.0a.js)
 
     <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha1.js"></script>
     <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-base64-min.js"></script>
@@ -172,7 +172,7 @@ $.ajax({
 ```
 ##Notes
 
-**If you want an easier way to handle your OAuth request. Please visit [SimpleOAuth](https://github.com/joeddo/SimpleOAuth), it's a wrapper of this project, some features:**
+**If you want an easier way to handle your OAuth request. Please visit [SimpleOAuth](https://github.com/ddo/SimpleOAuth), it's a wrapper of this project, some features:**
 
 * Request Token method
 * Get Authorize link method
