@@ -236,7 +236,7 @@ For those platforms, this library should come in handy.
 ##Todo
 * RSA-SHA1 signature method
 
-##[Changelog](https://github.com/ddo/oauth-1.0a/wiki/Changelog)
+##[Changelog](https://github.com/ddo/oauth-1.0a/releases)
 
 
 ##Depencies
