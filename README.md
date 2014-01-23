@@ -242,3 +242,7 @@ For those platforms, this library should come in handy.
 ##Depencies
 * Browser: [crypto-js](https://code.google.com/p/crypto-js/)
 * Node: [crypto-js](https://github.com/evanvosberg/crypto-js)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/ddo/oauth-1.0a/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
