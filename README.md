@@ -181,12 +181,12 @@ $.ajax({
 
 * Some OAuth requests without token use ``.authorize(request_data)`` instead of ``.authorize(request_data, {})``
 
-* **If you want an easier way to handle your OAuth request. Please visit [SimpleOAuth](https://github.com/ddo/SimpleOAuth), it's a wrapper of this project, some features:**
+* **If you want an easier way to handle your OAuth request. Please visit [Simple OAuth](https://github.com/ddo/simple-oauth), it's a wrapper of this project, some features:**
 	* Request Token method
 	* Get Authorize link method
-    * Access Token method
-    * OAuth 2.0 support
-    * Simpler syntax:
+	* Access Token method
+	* OAuth 2.0 support
+	* Simpler syntax:
  
 Node.js:
 
