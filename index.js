@@ -1,1 +1,0 @@
-module.exports = require('./lib/oauth-1.0a');
