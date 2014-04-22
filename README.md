@@ -1,7 +1,7 @@
 oauth-1.0a
 ==========
 
-[![Dependencies](https://api.travis-ci.org/ddo/oauth-1.0a.png)](https://travis-ci.org/ddo/oauth-1.0a)
+![codeship](https://www.codeship.io/projects/4388a200-ac85-0131-b0cb-7e8dce60f53f/status)
 [![Dependency Status](https://david-dm.org/ddo/oauth-1.0a.png?theme=shields.io)](https://david-dm.org/ddo/oauth-1.0a)
 [![NPM version](https://badge.fury.io/js/oauth-1.0a.png)](http://badge.fury.io/js/oauth-1.0a)
 
