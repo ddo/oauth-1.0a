@@ -1,6 +1,6 @@
 var expect  = require('chai').expect;
 var Request = require('request');
-var OAuth   = require('../../');
+var OAuth   = require('../../oauth-1.0a');
 
 describe("Twitter Personal Consumer", function() {
     var oauth = new OAuth({

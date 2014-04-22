@@ -1,6 +1,6 @@
 var expect  = require('chai').expect;
 var Request = require('request');
-var OAuth   = require('../../');
+var OAuth   = require('../../oauth-1.0a');
 
 describe("Bitbucket Personal Consumer", function() {
     this.timeout(10000);
