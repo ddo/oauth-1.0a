@@ -3,15 +3,10 @@ if (typeof(module) !== 'undefined' && typeof(exports) !== 'undefined') {
     var CryptoJS = require("crypto-js");
 }
 
-/*
-  Constructor
-
-  @param {Object} consumer key and secret
-  {
-    key,
-    secret
-  }
-*/
+/**
+ * Constructor
+ * @param {Object} opts consumer key and secret
+ */
 function OAuth(opts) {
     this.consumer = opts.consumer;
     this.signature_method = opts.signature_method || 'HMAC-SHA1';
@@ -36,18 +31,17 @@ function OAuth(opts) {
     }
 }
 
-/*
-  OAuth request authorize
-  @param {Object} request data
-  {
-    method,
-    url,
-    data
-  }
-  @param {Object} public and secret token
-
-  @return {Object} OAuth Authorized data
-*/
+/**
+ * OAuth request authorize
+ * @param  {Object} request data
+ * {
+ *     method,
+ *     url,
+ *     data
+ * }
+ * @param  {Object} public and secret token
+ * @return {Object} OAuth Authorized data
+ */
 OAuth.prototype.authorize = function(request, token) {
     var oauth_data = {
         oauth_consumer_key: this.consumer.public,
@@ -68,41 +62,37 @@ OAuth.prototype.authorize = function(request, token) {
     return oauth_data;
 };
 
-/*
-  Create a OAuth Signature
-  @param {Object} request data
-  {
-    method,
-    url,
-    data
-  }
-  @param {Object} public and secret token
-  @param {Object} OAuth data
-
-  @return {String} Signature
-*/
+/**
+ * Create a OAuth Signature
+ * @param  {Object} request data
+ * @param  {Object} token_secret public and secret token
+ * @param  {Object} oauth_data   OAuth data
+ * @return {String} Signature
+ */
 OAuth.prototype.getSignature = function(request, token_secret, oauth_data) {
     return this.hash(this.getBaseString(request, oauth_data), this.getSigningKey(token_secret));
 };
 
-/*
-  Base String = Method + Base Url + ParameterString
-  @param {Object} Request data
-  @param {Object} OAuth data
-
-  @return {String} Base String
-*/
+/**
+ * Base String = Method + Base Url + ParameterString
+ * @param  {Object} request data
+ * @param  {Object} OAuth data
+ * @return {String} Base String
+ */
 OAuth.prototype.getBaseString = function(request, oauth_data) {
     return request.method.toUpperCase() + '&' + this.percentEncode(this.getBaseUrl(request.url)) + '&' + this.percentEncode(this.getParameterString(request, oauth_data));
 };
 
-/*
-  Get data from url -> merge with oauth data -> percent encode key & value -> sort
-  @param {Object} Request data
-  @param {Object} OAuth data
-  
-  @return {Object} Parameter string data
-*/
+/**
+ * Get data from url
+ * -> merge with oauth data
+ * -> percent encode key & value
+ * -> sort
+ * 
+ * @param  {Object} request data
+ * @param  {Object} OAuth data
+ * @return {Object} Parameter string data
+ */
 OAuth.prototype.getParameterString = function(request, oauth_data) {
     var base_string_data = this.sortObject(this.percentEncodeData(this.mergeObject(oauth_data, this.mergeObject(request.data, this.deParamUrl(request.url)))));
 
@@ -118,33 +108,30 @@ OAuth.prototype.getParameterString = function(request, oauth_data) {
     return data_str;
 };
 
-/*
-  Create a Signing Key
-  @param {String} Secret Token
-
-  @return {String} Signing Key
-*/
+/**
+ * Create a Signing Key
+ * @param  {String} token_secret Secret Token
+ * @return {String} Signing Key
+ */
 OAuth.prototype.getSigningKey = function(token_secret) {
     token_secret = token_secret || '';
     return this.percentEncode(this.consumer.secret) + '&' + this.percentEncode(token_secret);
 };
 
-/*
-  Get base url
-  @param {String}
-
-  @return {String}
-*/
+/**
+ * Get base url
+ * @param  {String} url
+ * @return {String}
+ */
 OAuth.prototype.getBaseUrl = function(url) {
     return url.split('?')[0];
 };
 
-/*
-  Get data from String
-  @param {String} String
-
-  @return {Object} data
-*/
+/**
+ * Get data from String
+ * @param  {String} string
+ * @return {Object}
+ */
 OAuth.prototype.deParam = function(string) {
     var arr = decodeURIComponent(string).split('&');
     var data = {};
@@ -156,12 +143,11 @@ OAuth.prototype.deParam = function(string) {
     return data;
 };
 
-/*
-  Get data from url
-  @param {String} Url
-
-  @return {Object} data
-*/
+/**
+ * Get data from url
+ * @param  {String} url
+ * @return {Object}
+ */
 OAuth.prototype.deParamUrl = function(url) {
     var tmp = url.split('?');
 
@@ -171,12 +157,11 @@ OAuth.prototype.deParamUrl = function(url) {
     return this.deParam(tmp[1]);
 };
 
-/*
-  Percent Encode
-  @param {String}
-
-  @return {String} percent encoded string
-*/
+/**
+ * Percent Encode
+ * @param  {String} str
+ * @return {String} percent encoded string
+ */
 OAuth.prototype.percentEncode = function(str) {
     return encodeURIComponent(str)
         .replace(/\!/g, "%21")
@@ -186,12 +171,11 @@ OAuth.prototype.percentEncode = function(str) {
         .replace(/\)/g, "%29");
 };
 
-/*
-  Percent Encode Object
-  @param {Object}
-
-  @return {Object} percent encoded data
-*/
+/**
+ * Percent Encode Object
+ * @param  {Object} data
+ * @return {Object} percent encoded data
+ */
 OAuth.prototype.percentEncodeData = function(data) {
     var result = {};
 
@@ -202,12 +186,11 @@ OAuth.prototype.percentEncodeData = function(data) {
     return result;
 };
 
-/*  
-  Get OAuth data as Header
-  @param {Object} OAuth data
-
-  @return {String} Header data key - value
-*/
+/**
+ * Get OAuth data as Header
+ * @param  {Object} oauth_data
+ * @return {String} Header data key - value
+ */
 OAuth.prototype.toHeader = function(oauth_data) {
     oauth_data = this.sortObject(oauth_data);
 
@@ -224,12 +207,11 @@ OAuth.prototype.toHeader = function(oauth_data) {
     };
 };
 
-/*
-  Create a random word characters string with input length
-  @param {Int} string length (Default: 32)
-
-  @return {String} a random word characters string
-*/
+/**
+ * Create a random word characters string with input length
+ * @param  {Int} length (Default: 32)
+ * @return {String} a random word characters string
+ */
 OAuth.prototype.getNonce = function(length) {
     length = length || 32;
 
@@ -243,11 +225,10 @@ OAuth.prototype.getNonce = function(length) {
     return result;
 };
 
-/*
-  Get Current Unix TimeStamp
-
-  @return {Int} current unix timestamp
-*/
+/**
+ * Get Current Unix TimeStamp
+ * @return {Int} current unix timestamp
+ */
 OAuth.prototype.getTimeStamp = function() {
     // return parseInt(new Date().getTime()/1000, 10);
     // Bitwise is faster
@@ -256,13 +237,12 @@ OAuth.prototype.getTimeStamp = function() {
 
 ////////////////////// HELPER FUNCTIONS //////////////////////
 
-/*
-  Merge object
-  @param {Object}
-  @param {Object}
-
-  @return {Object}
-*/
+/**
+ * Merge object
+ * @param  {Object} obj1
+ * @param  {Object} obj2
+ * @return {Object}
+ */
 OAuth.prototype.mergeObject = function(obj1, obj2) {
     var merged_obj = obj1;
     for (var key in obj2) {
@@ -271,12 +251,11 @@ OAuth.prototype.mergeObject = function(obj1, obj2) {
     return merged_obj;
 };
 
-/*
-  Sort object by key
-  @param {Object}
-
-  @return {Object} sorted version
-*/
+/**
+ * Sort object by key
+ * @param  {Object} data
+ * @return {Object} sorted object
+ */
 OAuth.prototype.sortObject = function(data) {
     var keys = Object.keys(data);
     var result = {};
