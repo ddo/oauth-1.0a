@@ -5,6 +5,7 @@
   "scripts": {
     "test": "make test"
   },
+  "main": "oauth-1.0a.js",
   "repository": "https://github.com/ddo/oauth-1.0a.git",
   "keywords": [
     "oauth",
