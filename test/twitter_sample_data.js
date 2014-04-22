@@ -17,10 +17,12 @@ describe("Twitter Sample", function() {
         signature_method: 'HMAC-SHA1'
     });
 
+    //overide for testing only !!!
     oauth.getTimeStamp = function() {
         return 1318622958;
     };
 
+    //overide for testing only !!!
     oauth.getNonce = function(length) {
         return 'kYjzVBB8Y0ZFabxSWbWovY3uYSQ2pTgmZeNu2VS4cg';
     };
