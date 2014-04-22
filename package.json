@@ -3,8 +3,7 @@
   "version": "0.0.6",
   "description": "OAuth 1.0a Request Authorization for Node and Browser.",
   "scripts": {
-    "test": "mocha",
-    "start": "clear && node index"
+    "test": "make test"
   },
   "repository": "https://github.com/ddo/oauth-1.0a.git",
   "keywords": [
