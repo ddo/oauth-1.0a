@@ -8,6 +8,10 @@ if (typeof(module) !== 'undefined' && typeof(exports) !== 'undefined') {
  * @param {Object} opts consumer key and secret
  */
 function OAuth(opts) {
+    if(!(this instanceof OAuth)) {
+        return new OAuth(opts);
+    }
+
     this.consumer = opts.consumer;
     this.signature_method = opts.signature_method || 'HMAC-SHA1';
 
