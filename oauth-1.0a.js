@@ -27,10 +27,10 @@ function OAuth(opts) {
             };
             break;
         case 'RSA-SHA1':
-            console.warn('oauth-1.0a does not support this signature method right now. Coming Soon...');
+            throw new Error('oauth-1.0a does not support this signature method right now. Coming Soon...');
             break;
         default:
-            console.warn('The OAuth 1.0a protocol defines three signature methods: HMAC-SHA1, RSA-SHA1, and PLAINTEXT only');
+            throw new Error('The OAuth 1.0a protocol defines three signature methods: HMAC-SHA1, RSA-SHA1, and PLAINTEXT only');
             break;
     }
 }
