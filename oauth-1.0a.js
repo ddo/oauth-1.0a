@@ -12,9 +12,12 @@ function OAuth(opts) {
         return new OAuth(opts);
     }
 
-    this.consumer = opts.consumer;
-    this.signature_method = opts.signature_method || 'HMAC-SHA1';
-    this.nonce_length = opts.nonce_length || 32;
+    this.consumer            = opts.consumer;
+    this.signature_method    = opts.signature_method || 'HMAC-SHA1';
+    this.nonce_length        = opts.nonce_length || 32;
+    this.version             = opts.version || '1.0';
+    //header
+    this.parameter_seperator = opts.parameter_seperator || ', ';
 
     switch (this.signature_method) {
         case 'HMAC-SHA1':
