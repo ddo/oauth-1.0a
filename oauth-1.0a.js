@@ -227,7 +227,7 @@ OAuth.prototype.toHeader = function(oauth_data) {
     }
 
     return {
-        Authorization: header_value.substr(0, header_value.length - 2) //cut the last 2 chars
+        Authorization: header_value.substr(0, header_value.length - this.parameter_seperator.length) //cut the last chars
     };
 };
 
