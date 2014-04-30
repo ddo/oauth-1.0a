@@ -12,12 +12,21 @@ function OAuth(opts) {
         return new OAuth(opts);
     }
 
+    if(!opts) {
+        opts = {};
+    }
+
     this.consumer            = opts.consumer;
     this.signature_method    = opts.signature_method || 'HMAC-SHA1';
     this.nonce_length        = opts.nonce_length || 32;
     this.version             = opts.version || '1.0';
     this.parameter_seperator = opts.parameter_seperator || ', ';
-    this.last_ampersand      = opts.last_ampersand || true;
+
+    if(typeof opts.last_ampersand === 'undefined') {
+        this.last_ampersand = true;
+    } else {
+        this.last_ampersand = opts.last_ampersand;
+    }
 
     switch (this.signature_method) {
         case 'HMAC-SHA1':
