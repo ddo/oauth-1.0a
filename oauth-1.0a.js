@@ -55,11 +55,13 @@ OAuth.prototype.authorize = function(request, token) {
         oauth_version: '1.0'
     };
 
-    if (!token)
+    if(!token) {
         token = {};
+    }
 
-    if (token.public)
+    if(token.public) {
         oauth_data.oauth_token = token.public;
+    }
 
     oauth_data.oauth_signature = this.getSignature(request, token.secret, oauth_data);
 
@@ -103,7 +105,7 @@ OAuth.prototype.getParameterString = function(request, oauth_data) {
     var data_str = '';
 
     //base_string_data to string
-    for (var key in base_string_data) {
+    for(var key in base_string_data) {
         data_str += key + '=' + base_string_data[key] + '&';
     }
 
@@ -140,7 +142,7 @@ OAuth.prototype.deParam = function(string) {
     var arr = decodeURIComponent(string).split('&');
     var data = {};
 
-    for (var i = 0; i < arr.length; i++) {
+    for(var i = 0; i < arr.length; i++) {
         var item = arr[i].split('=');
         data[item[0]] = item[1];
     }
@@ -183,7 +185,7 @@ OAuth.prototype.percentEncode = function(str) {
 OAuth.prototype.percentEncodeData = function(data) {
     var result = {};
 
-    for (var key in data) {
+    for(var key in data) {
         result[this.percentEncode(key)] = this.percentEncode(data[key]);
     }
 
@@ -200,7 +202,7 @@ OAuth.prototype.toHeader = function(oauth_data) {
 
     var header_value = 'OAuth ';
 
-    for (var key in oauth_data) {
+    for(var key in oauth_data) {
         if (key.indexOf('oauth_') === -1)
             continue;
         header_value += this.percentEncode(key) + '="' + this.percentEncode(oauth_data[key]) + '", ';
@@ -222,7 +224,7 @@ OAuth.prototype.getNonce = function(length) {
     var word_characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     var result = '';
 
-    for (var i = 0; i < length; i++) {
+    for(var i = 0; i < length; i++) {
         result += word_characters[parseInt(Math.random() * word_characters.length, 10)];
     }
 
@@ -247,7 +249,7 @@ OAuth.prototype.getTimeStamp = function() {
  */
 OAuth.prototype.mergeObject = function(obj1, obj2) {
     var merged_obj = obj1;
-    for (var key in obj2) {
+    for(var key in obj2) {
         merged_obj[key] = obj2[key];
     }
     return merged_obj;
@@ -264,7 +266,7 @@ OAuth.prototype.sortObject = function(data) {
 
     keys.sort();
 
-    for (var i = 0; i < keys.length; i++) {
+    for(var i = 0; i < keys.length; i++) {
         var key = keys[i];
         result[key] = data[key];
     }
