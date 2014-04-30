@@ -68,7 +68,7 @@ var OAuth   = require('oauth-1.0a');
 
 Init
 ```js
-var oauth = new OAuth({
+var oauth = OAuth({
     consumer: {
         public: 'xvz1evFS4wEEPTGEFPHBog',
         secret: 'kAcSOqF21Fu85e7zjz7ZN2U4ZRhfV3WpwPAoE3Z7kBw'
@@ -127,7 +127,7 @@ request({
 
 Init
 ```js
-var oauth = new OAuth({
+var oauth = OAuth({
     consumer: {
         public: 'xvz1evFS4wEEPTGEFPHBog',
         secret: 'kAcSOqF21Fu85e7zjz7ZN2U4ZRhfV3WpwPAoE3Z7kBw'
