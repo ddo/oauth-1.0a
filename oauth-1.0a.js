@@ -53,7 +53,7 @@ function OAuth(opts) {
 OAuth.prototype.authorize = function(request, token) {
     var oauth_data = {
         oauth_consumer_key: this.consumer.public,
-        oauth_nonce: this.getNonce(this.nonce_length),
+        oauth_nonce: this.getNonce(),
         oauth_signature_method: this.signature_method,
         oauth_timestamp: this.getTimeStamp(),
         oauth_version: this.version
@@ -224,14 +224,13 @@ OAuth.prototype.toHeader = function(oauth_data) {
 
 /**
  * Create a random word characters string with input length
- * @param  {Int} length
  * @return {String} a random word characters string
  */
-OAuth.prototype.getNonce = function(length) {
+OAuth.prototype.getNonce = function() {
     var word_characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     var result = '';
 
-    for(var i = 0; i < length; i++) {
+    for(var i = 0; i < this.nonce_length; i++) {
         result += word_characters[parseInt(Math.random() * word_characters.length, 10)];
     }
 
