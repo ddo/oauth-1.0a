@@ -12,7 +12,9 @@ if(typeof(module) !== 'undefined' && typeof(exports) !== 'undefined') {
 
 describe("nonce_length option", function() {
     describe("default (32)", function() {
-        var oauth = OAuth();
+        var oauth = OAuth({
+            consumer: {}
+        });
 
         it("nonce length should be 32", function() {
             expect(oauth.getNonce().length).to.equal(32);
