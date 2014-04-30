@@ -11,7 +11,7 @@ if(typeof(module) !== 'undefined' && typeof(exports) !== 'undefined') {
 describe("last_ampersand option", function() {
     
     describe("default (true)", function() {
-        var oauth = new OAuth({
+        var oauth = OAuth({
             consumer: {
                 secret: 'kAcSOqF21Fu85e7zjz7ZN2U4ZRhfV3WpwPAoE3Z7kBw'
             }
@@ -31,7 +31,7 @@ describe("last_ampersand option", function() {
     });
 
     describe("change to false", function() {
-        var oauth = new OAuth({
+        var oauth = OAuth({
             consumer: {
                 secret: 'kAcSOqF21Fu85e7zjz7ZN2U4ZRhfV3WpwPAoE3Z7kBw'
             },

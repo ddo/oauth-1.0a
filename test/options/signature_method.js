@@ -11,6 +11,7 @@ if(typeof(module) !== 'undefined' && typeof(exports) !== 'undefined') {
 describe("Signature method", function() {
     describe("PLAINTEXT signature method", function() {
         var oauth = new OAuth({
+            consumer: {},
             signature_method: 'PLAINTEXT'
         });
 
@@ -23,6 +24,7 @@ describe("Signature method", function() {
         it("constructor should throw a error", function() {
             expect(function() {
                 OAuth({
+                    consumer: {},
                     signature_method: 'RSA-SHA1'
                 });
             }).to.throw('oauth-1.0a does not support this signature method right now. Coming Soon...');
@@ -33,6 +35,7 @@ describe("Signature method", function() {
         it("constructor should throw a error", function() {
             expect(function() {
                 new OAuth({
+                    consumer: {},
                     signature_method: 'UNKNOWN'
                 });
             }).to.throw('The OAuth 1.0a protocol defines three signature methods: HMAC-SHA1, RSA-SHA1, and PLAINTEXT only');

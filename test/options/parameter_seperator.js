@@ -10,7 +10,7 @@ if(typeof(module) !== 'undefined' && typeof(exports) !== 'undefined') {
 
 describe("parameter_seperator option", function() {
     describe("default (', ')", function() {
-        var oauth = new OAuth({
+        var oauth = OAuth({
             consumer: {
                 public: 'xvz1evFS4wEEPTGEFPHBog',
                 secret: 'kAcSOqF21Fu85e7zjz7ZN2U4ZRhfV3WpwPAoE3Z7kBw'
@@ -46,7 +46,7 @@ describe("parameter_seperator option", function() {
     });
 
     describe("-", function() {
-        var oauth = new OAuth({
+        var oauth = OAuth({
             consumer: {
                 public: 'xvz1evFS4wEEPTGEFPHBog',
                 secret: 'kAcSOqF21Fu85e7zjz7ZN2U4ZRhfV3WpwPAoE3Z7kBw'

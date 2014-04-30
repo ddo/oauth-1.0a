@@ -12,7 +12,7 @@ if(typeof(module) !== 'undefined' && typeof(exports) !== 'undefined') {
 
 describe("nonce_length option", function() {
     describe("default (32)", function() {
-        var oauth = new OAuth();
+        var oauth = OAuth();
 
         it("nonce length should be 32", function() {
             expect(oauth.getNonce().length).to.equal(32);
@@ -20,7 +20,8 @@ describe("nonce_length option", function() {
     });
 
     describe("length 100", function() {
-        var oauth = new OAuth({
+        var oauth = OAuth({
+            consumer: {},
             nonce_length: 100
         });
 
@@ -33,6 +34,7 @@ describe("nonce_length option", function() {
         var random = parseInt(Math.random()*100, 10);
 
         var oauth = new OAuth({
+            consumer: {},
             nonce_length: random
         });
 
