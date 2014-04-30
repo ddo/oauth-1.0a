@@ -53,7 +53,7 @@ OAuth.prototype.authorize = function(request, token) {
         oauth_nonce: this.getNonce(this.nonce_length),
         oauth_signature_method: this.signature_method,
         oauth_timestamp: this.getTimeStamp(),
-        oauth_version: '1.0'
+        oauth_version: this.version
     };
 
     if(!token) {
