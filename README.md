@@ -24,12 +24,11 @@ Tested on some popular OAuth 1.0a services:
 ## Quick Start
 
 ```js
-var oauth = new OAuth({
+var oauth = OAuth({
     consumer: {
         public: '<your consumer key>',
         secret: '<your consumer secret>'
-    },
-    signature_method: '<signature method>' //HMAC-SHA1 or PLAINTEXT ...
+    }
 });
 ```
 
