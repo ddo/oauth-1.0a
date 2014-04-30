@@ -14,6 +14,7 @@ function OAuth(opts) {
 
     this.consumer = opts.consumer;
     this.signature_method = opts.signature_method || 'HMAC-SHA1';
+    this.nonce_length = opts.nonce_length || 32;
 
     switch (this.signature_method) {
         case 'HMAC-SHA1':
@@ -49,7 +50,7 @@ function OAuth(opts) {
 OAuth.prototype.authorize = function(request, token) {
     var oauth_data = {
         oauth_consumer_key: this.consumer.public,
-        oauth_nonce: this.getNonce(),
+        oauth_nonce: this.getNonce(this.nonce_length),
         oauth_signature_method: this.signature_method,
         oauth_timestamp: this.getTimeStamp(),
         oauth_version: '1.0'
@@ -215,12 +216,10 @@ OAuth.prototype.toHeader = function(oauth_data) {
 
 /**
  * Create a random word characters string with input length
- * @param  {Int} length (Default: 32)
+ * @param  {Int} length
  * @return {String} a random word characters string
  */
 OAuth.prototype.getNonce = function(length) {
-    length = length || 32;
-
     var word_characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     var result = '';
 
