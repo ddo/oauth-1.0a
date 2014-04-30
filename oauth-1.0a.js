@@ -18,6 +18,8 @@ function OAuth(opts) {
     this.version             = opts.version || '1.0';
     //header
     this.parameter_seperator = opts.parameter_seperator || ', ';
+    //#getSigningKey
+    this.last_ampersand      = opts.last_ampersand || true;
 
     switch (this.signature_method) {
         case 'HMAC-SHA1':
@@ -125,6 +127,11 @@ OAuth.prototype.getParameterString = function(request, oauth_data) {
  */
 OAuth.prototype.getSigningKey = function(token_secret) {
     token_secret = token_secret || '';
+
+    if(!this.last_ampersand && !token_secret) {
+        return this.percentEncode(this.consumer.secret);
+    }
+
     return this.percentEncode(this.consumer.secret) + '&' + this.percentEncode(token_secret);
 };
 
