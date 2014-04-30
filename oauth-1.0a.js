@@ -12,8 +12,8 @@ function OAuth(opts) {
         return new OAuth(opts);
     }
 
-    if(!opts) {
-        opts = {};
+    if(!opts.consumer) {
+        throw new Error('consumer option is required');
     }
 
     this.consumer            = opts.consumer;
