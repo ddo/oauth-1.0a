@@ -179,6 +179,29 @@ $.ajax({
 	//process your data here
 });
 ```
+
+##Options
+```js
+var oauth = OAuth(/* options */);
+```
+
+* ``consumer``: ``Object`` ``Required`` your consumer keys
+
+```js
+{
+    public: <your consumer key>,
+    secret: <your consumer secret>
+}
+```
+
+* ``signature_method``: ``String`` default ``HMAC-SHA1``
+* ``nonce_length``: ``Int`` default ``32``
+* ``version``: ``String`` default ``1.0``
+* ``parameter_seperator``: ``String`` for header only, default ``, ``. Note that there is a space after ','
+* ``last_ampersand``: ``Bool`` default ``true``. For some services if there is no Token Secret then no need ``&`` at the end. Check [oauth doc](http://oauth.net/core/1.0a/#anchor22) for more information
+
+> oauth_signature is set to the concatenated encoded values of the Consumer Secret and Token Secret, separated by a '&' character (ASCII code 38), even if either secret is empty
+
 ##Notes
 
 * Some OAuth requests without token use ``.authorize(request_data)`` instead of ``.authorize(request_data, {})``
