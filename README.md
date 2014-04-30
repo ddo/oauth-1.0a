@@ -259,10 +259,9 @@ On the bright side, some platforms use JavaScript as their language, but enable 
 For those platforms, this library should come in handy.
 
 ##Todo
-* RSA-SHA1 signature method
+please check my [todo list](https://github.com/ddo/todo)
 
 ##[Changelog](https://github.com/ddo/oauth-1.0a/releases)
-
 
 ##Depencies
 * Browser: [crypto-js](https://code.google.com/p/crypto-js/)
