@@ -13,7 +13,7 @@ describe("Twitter Personal Consumer", function() {
 
     var token = {
         public: process.env.TWITTER_TOKEN_PUBLIC,
-        secret: process.env.TWITTER_SECRET_SECRET
+        secret: process.env.TWITTER_TOKEN_SECRET
     };
 
     describe("#Get user timeline", function() {
