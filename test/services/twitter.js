@@ -64,6 +64,29 @@ describe("Twitter Personal Consumer", function() {
         });
     });
 
+    describe("#Get user timeline limit 5 by url", function() {
+        this.timeout(10000);
+
+        var request = {
+            url: 'https://api.twitter.com/1.1/statuses/user_timeline.json?count=5',
+            method: 'GET'
+        };
+
+        it("should be an array of tweets", function(done) {
+            Request({
+                url: request.url,
+                method: request.method,
+                qs: oauth.authorize(request, token),
+                json: true
+            }, function(err, res, body) {
+                expect(err).to.be.a('null');
+                expect(body).to.be.an.instanceof(Array);
+                expect(body).to.have.length(5);
+                done();
+            });
+        });
+    });
+
     describe("#Get user timeline by header", function() {
         this.timeout(10000);
 
