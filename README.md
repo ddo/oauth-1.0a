@@ -206,42 +206,12 @@ var oauth = OAuth(/* options */);
 
 * Some OAuth requests without token use ``.authorize(request_data)`` instead of ``.authorize(request_data, {})``
 
-* **If you want an easier way to handle your OAuth request. Please visit [Simple OAuth](https://github.com/ddo/simple-oauth), it's a wrapper of this project, some features:**
-	* Request Token method
-	* Get Authorize link method
-	* Access Token method
-	* OAuth 2.0 support
-	* Simpler syntax:
- 
-Node.js:
+* Or just token public only ``.authorize(request_data, {public: 'xxxxx'})``
 
-```js
-request(oauth.requestsToken(), function(error, response, body) {
-	//process your data here
-});
-```
-```js
-request(oauth.accessToken({
-	oauth_verifier: '<verifier>'
-}), function(error, response, body) {
-	//process your data here
-});
-```
+* Want easier? Take a look:
 
-jQuery:
-
-```js
-$.ajax(oauth.requestsToken()).done(function(data) {
-	//process your data here
-});
-```
-```js
-$.ajax(oauth.accessToken({
-	oauth_verifier: '<verifier>'
-})).done(function(data) {
-	//process your data here
-});
-```
+    * Node.js: [oauth-request](https://github.com/ddo/oauth-request)
+    * jquery: *soon*
 
 ##Client Side Usage Caution
 
