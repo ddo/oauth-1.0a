@@ -78,6 +78,10 @@ OAuth.prototype.authorize = function(request, token) {
         oauth_data.oauth_token = token.public;
     }
 
+    if(!request.data) {
+        request.data = {};
+    }
+
     oauth_data.oauth_signature = this.getSignature(request, token.secret, oauth_data);
 
     return oauth_data;
