@@ -61,12 +61,12 @@ function OAuth(opts) {
  * @param  {Object} public and secret token
  * @return {Object} OAuth Authorized data
  */
-OAuth.prototype.authorize = function(request, token) {
+OAuth.prototype.authorize = function(request, token, adjustSeconds) {
     var oauth_data = {
         oauth_consumer_key: this.consumer.public,
         oauth_nonce: this.getNonce(),
         oauth_signature_method: this.signature_method,
-        oauth_timestamp: this.getTimeStamp(),
+        oauth_timestamp: this.getTimeStamp(adjustSeconds),
         oauth_version: this.version
     };
 
@@ -256,8 +256,8 @@ OAuth.prototype.getNonce = function() {
  * Get Current Unix TimeStamp
  * @return {Int} current unix timestamp
  */
-OAuth.prototype.getTimeStamp = function() {
-    return parseInt(new Date().getTime()/1000, 10);
+OAuth.prototype.getTimeStamp = function(adjustSeconds) {
+    return parseInt(new Date().getTime()/1000, 10) + (adjustSeconds || 0);
 };
 
 ////////////////////// HELPER FUNCTIONS //////////////////////
