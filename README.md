@@ -34,8 +34,11 @@ var oauth = OAuth({
 
 Get OAuth request data then you can use with your http client easily :)
 ```js
-oauth.authorize(request, token);
+oauth.authorize(request, token, [adjustSeconds]);
 ```
+If you know that the server and client times are not synchronized, you can pass in a number of seconds to adjust the signing timestamp.
+Positive adjustments will produce a future timestamp, in case the server's time is ahead of your client's.
+If you client's time is ahead of the server's, then use a negative adjustment.
 
 Or if you want to get as a header key-value data
 ```js
