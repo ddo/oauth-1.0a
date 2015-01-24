@@ -1,12 +1,32 @@
-oauth-1.0a
+oauth-1.0a ![codeship][codeship-img]
+
 ==========
 
-[![NPM version](https://badge.fury.io/js/oauth-1.0a.png)](http://badge.fury.io/js/oauth-1.0a)
-[![Dependency Status](https://david-dm.org/ddo/oauth-1.0a.png?theme=shields.io)](https://david-dm.org/ddo/oauth-1.0a)
-[![Coverage Status](https://coveralls.io/repos/ddo/oauth-1.0a/badge.png?branch=master)](https://coveralls.io/r/ddo/oauth-1.0a?branch=master)
-[![Code Climate](https://codeclimate.com/github/ddo/oauth-1.0a.png)](https://codeclimate.com/github/ddo/oauth-1.0a)
+[![version][version-img]][version-url]
+[![download][download-img]][download-url]
 
-![codeship](https://www.codeship.io/projects/4388a200-ac85-0131-b0cb-7e8dce60f53f/status)
+[![coverage][coverage-img]][coverage-url]
+[![climate][climate-img]][climate-url]
+
+[![dependency][dependency-img]][dependency-url]
+
+[codeship-img]: https://www.codeship.io/projects/4388a200-ac85-0131-b0cb-7e8dce60f53f/status
+[codeship-url]: https://www.codeship.io/projects/4388a200-ac85-0131-b0cb-7e8dce60f53f/status
+
+[download-img]: https://img.shields.io/npm/dm/oauth-1.0a.svg?style=flat-square
+[download-url]: https://www.npmjs.com/package/oauth-1.0a
+
+[version-img]: https://img.shields.io/npm/v/oauth-1.0a.svg?style=flat-square
+[version-url]: https://www.npmjs.com/package/oauth-1.0a
+
+[dependency-img]: https://img.shields.io/david/ddo/oauth-1.0a.svg?style=flat-square
+[dependency-url]: https://david-dm.org/ddo/oauth-1.0a
+
+[coverage-img]: https://img.shields.io/coveralls/ddo/oauth-1.0a/master.svg?style=flat-square
+[coverage-url]: https://coveralls.io/r/ddo/oauth-1.0a?branch=master
+
+[climate-img]: https://img.shields.io/codeclimate/github/ddo/oauth-1.0a.svg?style=flat-square
+[climate-url]: https://codeclimate.com/github/ddo/oauth-1.0a
 
 OAuth 1.0a Request Authorization for **Node** and **Browser**
 
@@ -227,9 +247,6 @@ On the bright side, some platforms use JavaScript as their language, but enable 
 * **Microsoft Sidebar**...
 
 For those platforms, this library should come in handy.
-
-##Todo
-please check my [todo list](https://github.com/ddo/todo)
 
 ##[Changelog](https://github.com/ddo/oauth-1.0a/releases)
 
