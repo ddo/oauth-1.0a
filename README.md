@@ -1,5 +1,4 @@
 oauth-1.0a ![codeship][codeship-img]
-
 ==========
 
 [![version][version-img]][version-url]
