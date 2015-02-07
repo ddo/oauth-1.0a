@@ -199,7 +199,38 @@ $.ajax({
 });
 ```
 
-##Options
+##.authorize(/* options */)
+
+* url: ``String``
+* method: ``String`` default ``'GET'``
+* data: ``Object`` any custom data you want to send with, including extra oauth option ``oauth_*`` as oauth_callback, oauth_version...
+
+```js
+var request_data = {
+    url: 'https://bitbucket.org/api/1.0/oauth/request_token',
+    method: 'POST',
+    data: {
+        oauth_callback: 'http://www.ddo.me'
+    }
+};
+```
+
+##.toHeader(/* signed data */)
+
+convert signed data into headers
+
+```js
+$.ajax({
+    url: request_data.url,
+    type: request_data.method,
+    data: request_data.data,
+    headers: oauth.toHeader(oauth.authorize(request_data, token))
+}).done(function(data) {
+    //process your data here
+});
+```
+
+##Init Options
 ```js
 var oauth = OAuth(/* options */);
 ```
