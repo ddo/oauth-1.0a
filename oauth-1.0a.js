@@ -38,6 +38,11 @@ function OAuth(opts) {
                 return CryptoJS.HmacSHA1(base_string, key).toString(CryptoJS.enc.Base64);
             };
             break;
+        case 'HMAC-SHA256':
+            this.hash = function(base_string, key) {
+                return CryptoJS.HmacSHA256(base_string, key).toString(CryptoJS.enc.Base64);
+            };
+            break;
         case 'PLAINTEXT':
             this.hash = function(base_string, key) {
                 return key;
