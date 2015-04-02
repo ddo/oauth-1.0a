@@ -39,6 +39,7 @@ Tested on some popular OAuth 1.0a services:
 * Flickr
 * Bitbucket
 * Linkedin
+* Openbankproject(HMAC-SHA256)
 
 ## Quick Start
 
@@ -70,9 +71,14 @@ oauth.toHeader(oauth_data);
 ###Browser
 Download oauth-1.0a.js [here](https://github.com/ddo/oauth-1.0a/blob/0.1.1/oauth-1.0a.js)
 
+```html
     <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha1.js"></script>
+    <!-- or -->
+    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha256.js"></script>
+
     <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-base64-min.js"></script>
     <script src="oauth-1.0a.js"></script>
+```
 
 ##Examples
 

@@ -8,6 +8,7 @@
 * Flickr
 * Linkedin
 * Bitbucket
+* Openbankproject
 
 ##Setup
 
@@ -25,6 +26,8 @@ Please these define Node environment variables:
 * ``LINKEDIN_CONSUMER_SECRET``
 * ``BITBUCKET_CONSUMER_PUBLIC``
 * ``BITBUCKET_CONSUMER_SECRET``
+* ``OPENBANK_CONSUMER_PUBLIC``
+* ``OPENBANK_CONSUMER_SECRET``
 
 ##Run test
 
