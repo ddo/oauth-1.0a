@@ -69,15 +69,16 @@ oauth.toHeader(oauth_data);
     $ npm install oauth-1.0a
     
 ###Browser
-Download oauth-1.0a.js [here](https://github.com/ddo/oauth-1.0a/blob/0.1.1/oauth-1.0a.js)
+Download oauth-1.0a.js [here](https://raw.githubusercontent.com/ddo/oauth-1.0a/master/oauth-1.0a.js)
 
 ```html
-    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha1.js"></script>
-    <!-- or -->
-    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha256.js"></script>
+<!-- sha1 -->
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha1.js"></script>
+<!-- sha256 -->
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha256.js"></script>
 
-    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-base64-min.js"></script>
-    <script src="oauth-1.0a.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-base64-min.js"></script>
+<script src="oauth-1.0a.js"></script>
 ```
 
 ##Examples
