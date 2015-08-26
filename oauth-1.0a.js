@@ -72,9 +72,9 @@ function OAuth(opts) {
 OAuth.prototype.authorize = function(request, token) {
     var oauth_data = {
         oauth_consumer_key: this.consumer.public,
-        oauth_nonce: this.getNonce(),
+        oauth_nonce: request.nonce ? request.nonce : this.getNonce(),
         oauth_signature_method: this.signature_method,
-        oauth_timestamp: this.getTimeStamp(),
+        oauth_timestamp: request.timestamp ? request.timestamp : this.getTimeStamp(),
         oauth_version: this.version
     };
 
