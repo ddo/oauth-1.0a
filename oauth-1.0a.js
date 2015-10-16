@@ -133,7 +133,25 @@ OAuth.prototype.getParameterString = function(request, oauth_data) {
 
     //base_string_data to string
     for(var key in base_string_data) {
-        data_str += key + '=' + base_string_data[key] + '&';
+        var value = base_string_data[key];
+        // check if the value is an array
+        // this means that this key has multiple values
+        if (value && Array.isArray(value)){
+          // sort the array first
+          value.sort();
+
+          var valString = "";
+          // serialize all values for this key: e.g. formkey=formvalue1&formkey=formvalue2
+          value.forEach((function(item, i){
+            valString += key + '=' + item;
+            if (i < value.length){
+              valString += "&";
+            }
+          }).bind(this));
+          data_str += valString;
+        } else {
+          data_str += key + '=' + value + '&';
+        }
     }
 
     //remove the last character
@@ -218,7 +236,19 @@ OAuth.prototype.percentEncodeData = function(data) {
     var result = {};
 
     for(var key in data) {
-        result[this.percentEncode(key)] = this.percentEncode(data[key]);
+        var value = data[key];
+        // check if the value is an array
+        if (value && Array.isArray(value)){
+          var newValue = [];
+          // percentEncode every value
+          value.forEach((function(val){
+            newValue.push(this.percentEncode(val));
+          }).bind(this));
+          value = newValue;
+        } else {
+          value = this.percentEncode(value);
+        }
+        result[this.percentEncode(key)] = value;
     }
 
     return result;
