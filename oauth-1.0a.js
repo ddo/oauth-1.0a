@@ -50,7 +50,7 @@ function OAuth(opts) {
                 return key;
             };
             break;
-            
+
         case 'RSA-SHA1':
             throw new Error('oauth-1.0a does not support this signature method right now. Coming Soon...');
         default:
@@ -121,7 +121,7 @@ OAuth.prototype.getBaseString = function(request, oauth_data) {
  * -> merge with oauth data
  * -> percent encode key & value
  * -> sort
- * 
+ *
  * @param  {Object} request data
  * @param  {Object} OAuth data
  * @return {Object} Parameter string data
@@ -189,12 +189,12 @@ OAuth.prototype.getBaseUrl = function(url) {
  * @return {Object}
  */
 OAuth.prototype.deParam = function(string) {
-    var arr = decodeURIComponent(string).split('&');
+    var arr = string.split('&');
     var data = {};
 
     for(var i = 0; i < arr.length; i++) {
         var item = arr[i].split('=');
-        data[item[0]] = item[1];
+        data[item[0]] = decodeURIComponent(item[1]);
     }
     return data;
 };
