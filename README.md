@@ -1,6 +1,8 @@
 oauth-1.0a ![codeship][codeship-img]
 ==========
 
+[![Join the chat at https://gitter.im/ddo/oauth-1.0a](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ddo/oauth-1.0a?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![version][version-img]][version-url]
 [![download][download-img]][download-url]
 
