@@ -131,6 +131,10 @@ OAuth.prototype.getParameterString = function(request, oauth_data) {
 
     var data_str = '';
 
+    if(base_string_data.hasOwnProperty('') && (base_string_data[''] == undefined || base_string_data[''] == "undefined")){
+        base_string_data[''] = '';
+    }
+
     //base_string_data to string
     for(var key in base_string_data) {
         var value = base_string_data[key];
