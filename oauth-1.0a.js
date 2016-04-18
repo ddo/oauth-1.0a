@@ -2,6 +2,12 @@ if (typeof(module) !== 'undefined' && typeof(exports) !== 'undefined') {
     module.exports = OAuth;
     var CryptoJS = require("crypto-js");
 }
+var nativeCrypto = null;
+try {
+  nativeCrypto = require("crypto");
+} catch (e) {
+  // do nothing when native crypto is not available; we're probably in a browser environment
+}
 
 /**
  * Constructor
@@ -35,13 +41,25 @@ function OAuth(opts) {
     switch (this.signature_method) {
         case 'HMAC-SHA1':
             this.hash = function(base_string, key) {
-                return CryptoJS.HmacSHA1(base_string, key).toString(CryptoJS.enc.Base64);
+                if (nativeCrypto){
+                  // Use native crypto module, which is faster than CryptoJS
+                  return nativeCrypto.createHmac('sha1', key).update(base_string).digest('base64');
+                } else {
+                  // fallback on JavaScript implementation
+                  return CryptoJS.HmacSHA1(base_string, key).toString(CryptoJS.enc.Base64); 
+                }
             };
             break;
 
         case 'HMAC-SHA256':
             this.hash = function(base_string, key) {
-                return CryptoJS.HmacSHA256(base_string, key).toString(CryptoJS.enc.Base64);
+                if (nativeCrypto){
+                  // Use native crypto module, which is faster than CryptoJS
+                  return nativeCrypto.createHmac('sha256', key).update(base_string).digest('base64');
+                } else {
+                  // fallback on JavaScript implementation
+                  return CryptoJS.HmacSHA256(base_string, key).toString(CryptoJS.enc.Base64); 
+                }
             };
             break;
 
