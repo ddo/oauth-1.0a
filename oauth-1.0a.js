@@ -1,6 +1,5 @@
 if (typeof(module) !== 'undefined' && typeof(exports) !== 'undefined') {
     module.exports = OAuth;
-    var CryptoJS = require("crypto-js");
 }
 
 /**
@@ -21,7 +20,6 @@ function OAuth(opts) {
     }
 
     this.consumer            = opts.consumer;
-    this.signature_method    = opts.signature_method || 'HMAC-SHA1';
     this.nonce_length        = opts.nonce_length || 32;
     this.version             = opts.version || '1.0';
     this.parameter_seperator = opts.parameter_seperator || ', ';
@@ -30,31 +28,6 @@ function OAuth(opts) {
         this.last_ampersand = true;
     } else {
         this.last_ampersand = opts.last_ampersand;
-    }
-
-    switch (this.signature_method) {
-        case 'HMAC-SHA1':
-            this.hash = function(base_string, key) {
-                return CryptoJS.HmacSHA1(base_string, key).toString(CryptoJS.enc.Base64);
-            };
-            break;
-
-        case 'HMAC-SHA256':
-            this.hash = function(base_string, key) {
-                return CryptoJS.HmacSHA256(base_string, key).toString(CryptoJS.enc.Base64);
-            };
-            break;
-
-        case 'PLAINTEXT':
-            this.hash = function(base_string, key) {
-                return key;
-            };
-            break;
-
-        case 'RSA-SHA1':
-            throw new Error('oauth-1.0a does not support this signature method right now. Coming Soon...');
-        default:
-            throw new Error('The OAuth 1.0a protocol defines three signature methods: HMAC-SHA1, RSA-SHA1, and PLAINTEXT only');
     }
 }
 
@@ -73,7 +46,6 @@ OAuth.prototype.authorize = function(request, token) {
     const oauth_data = {
         oauth_consumer_key: this.consumer.public,
         oauth_nonce: this.getNonce(),
-        oauth_signature_method: this.signature_method,
         oauth_timestamp: this.getTimeStamp(),
         oauth_version: this.version
     };
