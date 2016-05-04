@@ -70,7 +70,7 @@ function OAuth(opts) {
  * @return {Object} OAuth Authorized data
  */
 OAuth.prototype.authorize = function(request, token) {
-    var oauth_data = {
+    const oauth_data = {
         oauth_consumer_key: this.consumer.public,
         oauth_nonce: this.getNonce(),
         oauth_signature_method: this.signature_method,
@@ -90,10 +90,27 @@ OAuth.prototype.authorize = function(request, token) {
         request.data = {};
     }
 
-    oauth_data.oauth_signature = this.getSignature(request, token.secret, oauth_data);
-
-    return oauth_data;
+    return this.getSignature(request, token.secret, oauth_data).then(function(oauth_signature) {
+      oauth_data.oauth_signature = oauth_signature;
+      return oauth_data;
+    });
 };
+
+function text2ua(s) {
+    var ua = new Uint8Array(s.length);
+    for (var i = 0; i < s.length; i++) {
+        ua[i] = s.charCodeAt(i);
+    }
+    return ua;
+}
+
+function ua2text(ua) {
+    var s = '';
+    for (var i = 0; i < ua.length; i++) {
+        s += String.fromCharCode(ua[i]);
+    }
+    return s;
+}
 
 /**
  * Create a OAuth Signature
@@ -103,7 +120,22 @@ OAuth.prototype.authorize = function(request, token) {
  * @return {String} Signature
  */
 OAuth.prototype.getSignature = function(request, token_secret, oauth_data) {
-    return this.hash(this.getBaseString(request, oauth_data), this.getSigningKey(token_secret));
+  const bs = this.getBaseString(request, oauth_data);
+  const sk = this.getSigningKey(token_secret);
+  return crypto.subtle.importKey(
+    "raw",
+    text2ua(sk).buffer,
+    {
+      name: "HMAC",
+      hash: {name: "SHA-1"},
+    },
+    true,
+    ["sign"]
+  ).then(key =>
+    crypto.subtle.sign("HMAC", key, text2ua(bs))
+  ).then(
+    signature => btoa(ua2text(new Uint8Array(signature)))
+  ).catch(console.error);
 };
 
 /**
