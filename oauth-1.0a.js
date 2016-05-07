@@ -20,6 +20,7 @@ function OAuth(opts) {
     }
 
     this.consumer            = opts.consumer;
+    this.signature_method    = opts.signature_method || 'HMAC-SHA1';
     this.nonce_length        = opts.nonce_length || 32;
     this.version             = opts.version || '1.0';
     this.parameter_seperator = opts.parameter_seperator || ', ';
@@ -46,6 +47,7 @@ OAuth.prototype.authorize = function(request, token) {
     const oauth_data = {
         oauth_consumer_key: this.consumer.public,
         oauth_nonce: this.getNonce(),
+        oauth_signature_method: this.signature_method,
         oauth_timestamp: this.getTimeStamp(),
         oauth_version: this.version
     };
