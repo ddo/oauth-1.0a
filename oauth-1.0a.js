@@ -1,6 +1,32 @@
 if (typeof(module) !== 'undefined' && typeof(exports) !== 'undefined') {
     module.exports = OAuth;
-    var CryptoJS = require("crypto-js");
+}
+
+const encoder = new TextEncoder();
+
+function ua2text(buf) {
+  return String.fromCharCode.apply(null, buf)
+}
+
+function text2ua(str) {
+  return encoder.encode(str);
+}
+
+function hmac(hashFct, baseString, signingKey) {
+  return crypto.subtle.importKey(
+    "raw",
+    text2ua(signingKey).buffer,
+    {
+      name: "HMAC",
+      hash: {name: hashFct},
+    },
+    true,
+    ["sign"]
+  ).then(key =>
+    crypto.subtle.sign("HMAC", key, text2ua(baseString))
+  ).then(
+    signature => btoa(ua2text(new Uint8Array(signature)))
+  ).catch(console.error);
 }
 
 /**
@@ -35,26 +61,26 @@ function OAuth(opts) {
     switch (this.signature_method) {
         case 'HMAC-SHA1':
             this.hash = function(base_string, key) {
-                return CryptoJS.HmacSHA1(base_string, key).toString(CryptoJS.enc.Base64);
+                return hmac("SHA-1", base_string, key);
             };
             break;
 
         case 'HMAC-SHA256':
             this.hash = function(base_string, key) {
-                return CryptoJS.HmacSHA256(base_string, key).toString(CryptoJS.enc.Base64);
+                return hmac("SHA-256", base_string, key);
             };
             break;
 
         case 'PLAINTEXT':
             this.hash = function(base_string, key) {
-                return key;
+                return Promise.resolve(key);
             };
             break;
 
         case 'RSA-SHA1':
-            throw new Error('oauth-1.0a does not support this signature method right now. Coming Soon...');
+            return Promise.reject(new Error('oauth-1.0a does not support this signature method right now. Coming Soon...'));
         default:
-            throw new Error('The OAuth 1.0a protocol defines three signature methods: HMAC-SHA1, RSA-SHA1, and PLAINTEXT only');
+            return Promise.reject(new Error('The OAuth 1.0a protocol defines three signature methods: HMAC-SHA1, HMAC-SHA256, RSA-SHA1, and PLAINTEXT only'));
     }
 }
 
@@ -90,9 +116,10 @@ OAuth.prototype.authorize = function(request, token) {
         request.data = {};
     }
 
-    oauth_data.oauth_signature = this.getSignature(request, token.secret, oauth_data);
-
-    return oauth_data;
+    return this.getSignature(request, token.secret, oauth_data).then(function(oauth_signature) {
+      oauth_data.oauth_signature = oauth_signature;
+      return oauth_data;
+    });
 };
 
 /**
