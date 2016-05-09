@@ -2,6 +2,33 @@ if (typeof(module) !== 'undefined' && typeof(exports) !== 'undefined') {
     module.exports = OAuth;
 }
 
+const encoder = new TextEncoder();
+
+function ua2text(buf) {
+  return String.fromCharCode.apply(null, buf)
+}
+
+function text2ua(str) {
+  return encoder.encode(str);
+}
+
+function hmac(hashFct, baseString, signingKey) {
+  return crypto.subtle.importKey(
+    "raw",
+    text2ua(signingKey).buffer,
+    {
+      name: "HMAC",
+      hash: {name: hashFct},
+    },
+    true,
+    ["sign"]
+  ).then(key =>
+    crypto.subtle.sign("HMAC", key, text2ua(baseString))
+  ).then(
+    signature => btoa(ua2text(new Uint8Array(signature)))
+  ).catch(console.error);
+}
+
 /**
  * Constructor
  * @param {Object} opts consumer key and secret
@@ -30,6 +57,31 @@ function OAuth(opts) {
     } else {
         this.last_ampersand = opts.last_ampersand;
     }
+
+    switch (this.signature_method) {
+        case 'HMAC-SHA1':
+            this.hash = function(base_string, key) {
+                return hmac("SHA-1", base_string, key);
+            };
+            break;
+
+        case 'HMAC-SHA256':
+            this.hash = function(base_string, key) {
+                return hmac("SHA-256", base_string, key);
+            };
+            break;
+
+        case 'PLAINTEXT':
+            this.hash = function(base_string, key) {
+                return Promise.resolve(key);
+            };
+            break;
+
+        case 'RSA-SHA1':
+            return Promise.reject(new Error('oauth-1.0a does not support this signature method right now. Coming Soon...'));
+        default:
+            return Promise.reject(new Error('The OAuth 1.0a protocol defines three signature methods: HMAC-SHA1, HMAC-SHA256, RSA-SHA1, and PLAINTEXT only'));
+    }
 }
 
 /**
@@ -44,7 +96,7 @@ function OAuth(opts) {
  * @return {Object} OAuth Authorized data
  */
 OAuth.prototype.authorize = function(request, token) {
-    const oauth_data = {
+    var oauth_data = {
         oauth_consumer_key: this.consumer.public,
         oauth_nonce: this.getNonce(),
         oauth_signature_method: this.signature_method,
@@ -70,22 +122,6 @@ OAuth.prototype.authorize = function(request, token) {
     });
 };
 
-function text2ua(s) {
-    var ua = new Uint8Array(s.length);
-    for (var i = 0; i < s.length; i++) {
-        ua[i] = s.charCodeAt(i);
-    }
-    return ua;
-}
-
-function ua2text(ua) {
-    var s = '';
-    for (var i = 0; i < ua.length; i++) {
-        s += String.fromCharCode(ua[i]);
-    }
-    return s;
-}
-
 /**
  * Create a OAuth Signature
  * @param  {Object} request data
@@ -94,22 +130,7 @@ function ua2text(ua) {
  * @return {String} Signature
  */
 OAuth.prototype.getSignature = function(request, token_secret, oauth_data) {
-  const bs = this.getBaseString(request, oauth_data);
-  const sk = this.getSigningKey(token_secret);
-  return crypto.subtle.importKey(
-    "raw",
-    text2ua(sk).buffer,
-    {
-      name: "HMAC",
-      hash: {name: "SHA-1"},
-    },
-    true,
-    ["sign"]
-  ).then(key =>
-    crypto.subtle.sign("HMAC", key, text2ua(bs))
-  ).then(
-    signature => btoa(ua2text(new Uint8Array(signature)))
-  ).catch(console.error);
+    return this.hash(this.getBaseString(request, oauth_data), this.getSigningKey(token_secret));
 };
 
 /**
