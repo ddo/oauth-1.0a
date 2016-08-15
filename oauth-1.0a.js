@@ -1,6 +1,8 @@
 if (typeof(module) !== 'undefined' && typeof(exports) !== 'undefined') {
     module.exports = OAuth;
-    var CryptoJS = require("crypto-js");
+    var HmacSHA1 = require("crypto-js/hmac-sha1");
+    var HmacSHA256 = require("crypto-js/hmac-sha256");
+    var EncBase64 = require("crypto-js/enc-base64");
 }
 
 /**
@@ -35,13 +37,13 @@ function OAuth(opts) {
     switch (this.signature_method) {
         case 'HMAC-SHA1':
             this.hash = function(base_string, key) {
-                return CryptoJS.HmacSHA1(base_string, key).toString(CryptoJS.enc.Base64);
+                return HmacSHA1(base_string, key).toString(EncBase64);
             };
             break;
 
         case 'HMAC-SHA256':
             this.hash = function(base_string, key) {
-                return CryptoJS.HmacSHA256(base_string, key).toString(CryptoJS.enc.Base64);
+                return HmacSHA256(base_string, key).toString(EncBase64);
             };
             break;
 
