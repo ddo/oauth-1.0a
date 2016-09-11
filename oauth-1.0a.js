@@ -54,12 +54,12 @@ function OAuth(opts) {
  *     url,
  *     data
  * }
- * @param  {Object} public and secret token
+ * @param  {Object} key and secret token
  * @return {Object} OAuth Authorized data
  */
 OAuth.prototype.authorize = function(request, token) {
     var oauth_data = {
-        oauth_consumer_key: this.consumer.public,
+        oauth_consumer_key: this.consumer.key,
         oauth_nonce: this.getNonce(),
         oauth_signature_method: this.signature_method,
         oauth_timestamp: this.getTimeStamp(),
@@ -70,8 +70,8 @@ OAuth.prototype.authorize = function(request, token) {
         token = {};
     }
 
-    if(token.public) {
-        oauth_data.oauth_token = token.public;
+    if(token.key) {
+        oauth_data.oauth_token = token.key;
     }
 
     if(!request.data) {
@@ -86,7 +86,7 @@ OAuth.prototype.authorize = function(request, token) {
 /**
  * Create a OAuth Signature
  * @param  {Object} request data
- * @param  {Object} token_secret public and secret token
+ * @param  {Object} token_secret key and secret token
  * @param  {Object} oauth_data   OAuth data
  * @return {String} Signature
  */
