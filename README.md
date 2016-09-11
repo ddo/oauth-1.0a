@@ -11,8 +11,8 @@ oauth-1.0a ![codeship][codeship-img]
 
 [![dependency][dependency-img]][dependency-url]
 
-[codeship-img]: https://www.codeship.io/projects/4388a200-ac85-0131-b0cb-7e8dce60f53f/status
-[codeship-url]: https://www.codeship.io/projects/4388a200-ac85-0131-b0cb-7e8dce60f53f/status
+[codeship-img]: https://codeship.com/projects/4388a200-ac85-0131-b0cb-7e8dce60f53f/status?branch=master
+[codeship-url]: https://codeship.com/projects/4388a200-ac85-0131-b0cb-7e8dce60f53f/status?branch=master
 
 [download-img]: https://img.shields.io/npm/dm/oauth-1.0a.svg?style=flat-square
 [download-url]: https://www.npmjs.com/package/oauth-1.0a
@@ -46,10 +46,17 @@ Tested on some popular OAuth 1.0a services:
 ## Quick Start
 
 ```js
+var crypto = require('crypto');
+...
+
 var oauth = OAuth({
     consumer: {
-        public: '<your consumer key>',
+        key: '<your consumer key>',
         secret: '<your consumer secret>'
+    },
+    signature_method: 'HMAC-SHA1',
+    hash_function: function(base_string, key) {
+        return crypto.createHmac('sha1', key).update(base_string).digest('base64');
     }
 });
 ```
@@ -64,14 +71,60 @@ Or if you want to get as a header key-value data
 oauth.toHeader(oauth_data);
 ```
 
+## Crypto
+From version ``2.0.0``, crypto/hash stuff is separated.
+``oauth-1.0a`` will use your ``hash_function`` to sign.
+
+### Example
+
+#### Node.js
+
+```js
+var crypto = require('crypto');
+
+function hash_function_sha1(base_string, key) {
+    return crypto.createHmac('sha1', key).update(base_string).digest('base64');
+}
+
+var oauth = OAuth({
+    consumer: {
+        key: '<your consumer key>',
+        secret: '<your consumer secret>'
+    },
+    signature_method: 'HMAC-SHA1',
+    hash_function: hash_function_sha1
+});
+```
+
+* sha1: ``crypto.createHmac('sha1', key).update(base_string).digest('base64');``
+* sha256: ``crypto.createHmac('sha256', key).update(base_string).digest('base64');``
+* ...
+
+#### Browser
+*using google CryptoJS*
+
+* sha1: ``CryptoJS.HmacSHA1(base_string, key).toString(CryptoJS.enc.Base64);``
+* sha256: ``CryptoJS.HmacSHA256(base_string, key).toString(CryptoJS.enc.Base64);``
+* ...
 
 ##Installation
 
 ###Node.js
-    $ npm install oauth-1.0a
-    
+    $ npm install oauth-1.0a --production
+
+* You can use the native crypto package for ``hash_function``.
+* It is possible for Node.js to be built without including support for the crypto module. In such cases, calling ``require('crypto')`` will result in an error being thrown.
+* You can use your own hash function which has format as:
+
+```js
+    function(base_string, key) return <string>
+```
+
+
 ###Browser
 Download oauth-1.0a.js [here](https://raw.githubusercontent.com/ddo/oauth-1.0a/master/oauth-1.0a.js)
+
+And also your crypto lib. For example [CryptoJS](https://code.google.com/archive/p/crypto-js/)
 
 ```html
 <!-- sha1 -->
@@ -92,16 +145,20 @@ Depencies
 ```js
 var request = require('request');
 var OAuth   = require('oauth-1.0a');
+var crypto  = require('crypto');
 ```
 
 Init
 ```js
 var oauth = OAuth({
     consumer: {
-        public: 'xvz1evFS4wEEPTGEFPHBog',
+        key: 'xvz1evFS4wEEPTGEFPHBog',
         secret: 'kAcSOqF21Fu85e7zjz7ZN2U4ZRhfV3WpwPAoE3Z7kBw'
     },
-    signature_method: 'HMAC-SHA1'
+    signature_method: 'HMAC-SHA1',
+    hash_function: function(base_string, key) {
+        return crypto.createHmac('sha1', key).update(base_string).digest('base64');
+    }
 });
 ```
 
@@ -119,7 +176,7 @@ var request_data = {
 Your token (optional for some requests)
 ```js
 var token = {
-    public: '370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb',
+    key: '370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb',
     secret: 'LswwdoUaIvS8ltyTt5jkRh4J50vUPVVHtR2YPi5kE'
 };
 ```
@@ -157,10 +214,13 @@ Init
 ```js
 var oauth = OAuth({
     consumer: {
-        public: 'xvz1evFS4wEEPTGEFPHBog',
+        key: 'xvz1evFS4wEEPTGEFPHBog',
         secret: 'kAcSOqF21Fu85e7zjz7ZN2U4ZRhfV3WpwPAoE3Z7kBw'
     },
-    signature_method: 'HMAC-SHA1'
+    signature_method: 'HMAC-SHA1',
+    hash_function: function(base_string, key) {
+        return CryptoJS.HmacSHA1(base_string, key).toString(CryptoJS.enc.Base64);
+    }
 });
 ```
 
@@ -178,7 +238,7 @@ var request_data = {
 Your token (optional for some requests)
 ```js
 var token = {
-    public: '370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb',
+    key: '370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb',
     secret: 'LswwdoUaIvS8ltyTt5jkRh4J50vUPVVHtR2YPi5kE'
 };
 ```
@@ -248,12 +308,13 @@ var oauth = OAuth(/* options */);
 
 ```js
 {
-    public: <your consumer key>,
+    key: <your consumer key>,
     secret: <your consumer secret>
 }
 ```
 
-* ``signature_method``: ``String`` default ``'HMAC-SHA1'``
+* ``signature_method``: ``String`` default ``'PLAINTEXT'``
+* ``hash_function``: ``Function`` if ``signature_method`` = ``'PLAINTEXT'`` default ``return key``
 * ``nonce_length``: ``Int`` default ``32``
 * ``version``: ``String`` default ``'1.0'``
 * ``parameter_seperator``: ``String`` for header only, default ``', '``. Note that there is a space after ``,``
@@ -265,7 +326,7 @@ var oauth = OAuth(/* options */);
 
 * Some OAuth requests without token use ``.authorize(request_data)`` instead of ``.authorize(request_data, {})``
 
-* Or just token public only ``.authorize(request_data, {public: 'xxxxx'})``
+* Or just token key only ``.authorize(request_data, {key: 'xxxxx'})``
 
 * Want easier? Take a look:
 
@@ -288,7 +349,3 @@ On the bright side, some platforms use JavaScript as their language, but enable 
 For those platforms, this library should come in handy.
 
 ##[Changelog](https://github.com/ddo/oauth-1.0a/releases)
-
-##Depencies
-* Browser: [crypto-js](https://code.google.com/p/crypto-js/)
-* Node: [crypto-js](https://github.com/evanvosberg/crypto-js)
