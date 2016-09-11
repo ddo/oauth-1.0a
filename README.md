@@ -1,4 +1,4 @@
-oauth-1.0a ![codeship][codeship-img]
+oauth-1.0a ![semaphore][semaphore-img]
 ==========
 
 [![Join the chat at https://gitter.im/ddo/oauth-1.0a](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ddo/oauth-1.0a?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
@@ -11,8 +11,8 @@ oauth-1.0a ![codeship][codeship-img]
 
 [![dependency][dependency-img]][dependency-url]
 
-[codeship-img]: https://codeship.com/projects/4388a200-ac85-0131-b0cb-7e8dce60f53f/status?branch=master
-[codeship-url]: https://codeship.com/projects/4388a200-ac85-0131-b0cb-7e8dce60f53f/status?branch=master
+[semaphore-img]: https://semaphoreci.com/api/v1/ddo/oauth-1-0a/branches/master/badge.svg
+[semaphore-url]: https://semaphoreci.com/ddo/oauth-1-0a)
 
 [download-img]: https://img.shields.io/npm/dm/oauth-1.0a.svg?style=flat-square
 [download-url]: https://www.npmjs.com/package/oauth-1.0a
