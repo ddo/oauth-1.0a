@@ -1,6 +1,5 @@
 if (typeof(module) !== 'undefined' && typeof(exports) !== 'undefined') {
     module.exports = OAuth;
-    var CryptoJS = require("crypto-js");
 }
 
 /**
@@ -21,7 +20,6 @@ function OAuth(opts) {
     }
 
     this.consumer            = opts.consumer;
-    this.signature_method    = opts.signature_method || 'HMAC-SHA1';
     this.nonce_length        = opts.nonce_length || 32;
     this.version             = opts.version || '1.0';
     this.parameter_seperator = opts.parameter_seperator || ', ';
@@ -32,30 +30,20 @@ function OAuth(opts) {
         this.last_ampersand = opts.last_ampersand;
     }
 
-    switch (this.signature_method) {
-        case 'HMAC-SHA1':
-            this.hash = function(base_string, key) {
-                return CryptoJS.HmacSHA1(base_string, key).toString(CryptoJS.enc.Base64);
-            };
-            break;
+    // default signature_method is 'PLAINTEXT'
+    this.signature_method = opts.signature_method || 'PLAINTEXT';
 
-        case 'HMAC-SHA256':
-            this.hash = function(base_string, key) {
-                return CryptoJS.HmacSHA256(base_string, key).toString(CryptoJS.enc.Base64);
-            };
-            break;
-
-        case 'PLAINTEXT':
-            this.hash = function(base_string, key) {
-                return key;
-            };
-            break;
-
-        case 'RSA-SHA1':
-            throw new Error('oauth-1.0a does not support this signature method right now. Coming Soon...');
-        default:
-            throw new Error('The OAuth 1.0a protocol defines three signature methods: HMAC-SHA1, RSA-SHA1, and PLAINTEXT only');
+    if(this.signature_method == 'PLAINTEXT' && !opts.hash_function) {
+        opts.hash_function = function(base_string, key) {
+            return key;
+        }
     }
+
+    if(!opts.hash_function) {
+        throw new Error('hash_function option is required');
+    }
+
+    this.hash_function = opts.hash_function;
 }
 
 /**
@@ -103,7 +91,7 @@ OAuth.prototype.authorize = function(request, token) {
  * @return {String} Signature
  */
 OAuth.prototype.getSignature = function(request, token_secret, oauth_data) {
-    return this.hash(this.getBaseString(request, oauth_data), this.getSigningKey(token_secret));
+    return this.hash_function(this.getBaseString(request, oauth_data), this.getSigningKey(token_secret));
 };
 
 /**
