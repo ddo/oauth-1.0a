@@ -1,6 +1,7 @@
 var expect  = require('chai').expect;
 var Request = require('request');
 var OAuth   = require('../../oauth-1.0a');
+var crypto = require('crypto');
 
 describe("Twitter Personal Consumer", function() {
     var oauth = new OAuth({
@@ -8,7 +9,10 @@ describe("Twitter Personal Consumer", function() {
             public: process.env.TWITTER_CONSUMER_PUBLIC,
             secret: process.env.TWITTER_CONSUMER_SECRET
         },
-        signature_method: 'HMAC-SHA1'
+        signature_method: 'HMAC-SHA1',
+        hash_function: function(base_string, key) {
+            return crypto.createHmac('sha1', key).update(base_string).digest('base64');
+        }
     });
 
     var token = {

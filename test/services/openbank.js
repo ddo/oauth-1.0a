@@ -1,6 +1,7 @@
 var expect  = require('chai').expect;
 var Request = require('request');
 var OAuth   = require('../../oauth-1.0a');
+var crypto = require('crypto');
 
 describe("Openbank Personal Consumer", function() {
     this.timeout(10000);
@@ -10,7 +11,10 @@ describe("Openbank Personal Consumer", function() {
             public: process.env.OPENBANK_CONSUMER_PUBLIC,
             secret: process.env.OPENBANK_CONSUMER_SECRET
         },
-        signature_method: 'HMAC-SHA256'
+        signature_method: 'HMAC-SHA256',
+        hash_function: function(base_string, key) {
+            return crypto.createHmac('sha256', key).update(base_string).digest('base64');
+        }
     });
 
     //need to send as header

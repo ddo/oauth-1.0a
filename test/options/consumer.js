@@ -1,12 +1,5 @@
-var expect;
-
-//Node.js
-if(typeof(module) !== 'undefined' && typeof(exports) !== 'undefined') {
-    expect = require('chai').expect;
-    var OAuth = require('../../oauth-1.0a');
-} else { //Browser
-    expect = chai.expect;
-}
+var expect = require('chai').expect;
+var OAuth = require('../../oauth-1.0a');
 
 //TODO: check alphabet and numberic only
 

@@ -1,12 +1,6 @@
-var expect;
-
-//Node.js
-if(typeof(module) !== 'undefined' && typeof(exports) !== 'undefined') {
-    expect = require('chai').expect;
-    var OAuth = require('../oauth-1.0a');
-} else { //Browser
-    expect = chai.expect;
-}
+var expect = require('chai').expect;
+var OAuth = require('../oauth-1.0a');
+var crypto = require('crypto');
 
 describe("Twitter Sample", function() {
     var oauth = new OAuth({
@@ -14,7 +8,10 @@ describe("Twitter Sample", function() {
             public: 'xvz1evFS4wEEPTGEFPHBog',
             secret: 'kAcSOqF21Fu85e7zjz7ZN2U4ZRhfV3WpwPAoE3Z7kBw'
         },
-        signature_method: 'HMAC-SHA1'
+        signature_method: 'HMAC-SHA1',
+        hash_function: function(base_string, key) {
+            return crypto.createHmac('sha1', key).update(base_string).digest('base64');
+        }
     });
 
     //overide for testing only !!!

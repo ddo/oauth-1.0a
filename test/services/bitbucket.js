@@ -1,6 +1,7 @@
 var expect  = require('chai').expect;
 var Request = require('request');
 var OAuth   = require('../../oauth-1.0a');
+var crypto = require('crypto');
 
 describe("Bitbucket Personal Consumer", function() {
     this.timeout(10000);
@@ -10,7 +11,10 @@ describe("Bitbucket Personal Consumer", function() {
             public: process.env.BITBUCKET_CONSUMER_PUBLIC,
             secret: process.env.BITBUCKET_CONSUMER_SECRET
         },
-        signature_method: 'HMAC-SHA1'
+        signature_method: 'HMAC-SHA1',
+        hash_function: function(base_string, key) {
+            return crypto.createHmac('sha1', key).update(base_string).digest('base64');
+        }
     });
 
     describe("#Request Token", function() {

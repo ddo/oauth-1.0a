@@ -1,21 +1,20 @@
-var expect;
+var expect = require('chai').expect;
+var OAuth = require('../../oauth-1.0a');
+var crypto = require('crypto');
 
-//Node.js
-if(typeof(module) !== 'undefined' && typeof(exports) !== 'undefined') {
-    expect = require('chai').expect;
-    var OAuth = require('../../oauth-1.0a');
-} else { //Browser
-    expect = chai.expect;
+function hash_function_SHA1(base_string, key) {
+    return crypto.createHmac('sha1', key).update(base_string).digest('base64');
 }
 
 describe("Signature method", function() {
     describe("HMAC-SHA1 signature method with multiple values", function() {
         var oauth = new OAuth({
-          consumer: {
+            consumer: {
             public: "batch-dbc2cd8c-6ca8-463b-96e2-6d8683eac6fd",
             secret: "4S4Rvm25CJZWv7HBg5HOhhlRTBSZ7npl"
-          },
-          signature_method: 'HMAC-SHA1'
+            },
+            signature_method: 'HMAC-SHA1',
+            hash_function: hash_function_SHA1
         });
 
         //overide for testing only !!!

@@ -1,6 +1,7 @@
 var expect  = require('chai').expect;
 var Request = require('request');
 var OAuth   = require('../../oauth-1.0a');
+var crypto = require('crypto');
 
 /*
     Can not use Header
@@ -13,7 +14,10 @@ describe("Linkedin Personal Consumer", function() {
             public: process.env.LINKEDIN_CONSUMER_PUBLIC,
             secret: process.env.LINKEDIN_CONSUMER_SECRET
         },
-        signature_method: 'HMAC-SHA1'
+        signature_method: 'HMAC-SHA1',
+        hash_function: function(base_string, key) {
+            return crypto.createHmac('sha1', key).update(base_string).digest('base64');
+        }
     });
 
     describe("#Request Token", function() {

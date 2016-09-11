@@ -1,11 +1,9 @@
-var expect;
+var expect = require('chai').expect;
+var OAuth = require('../../oauth-1.0a');
+var crypto = require('crypto');
 
-//Node.js
-if(typeof(module) !== 'undefined' && typeof(exports) !== 'undefined') {
-    expect = require('chai').expect;
-    var OAuth = require('../../oauth-1.0a');
-} else { //Browser
-    expect = chai.expect;
+function hash_function_SHA1(base_string, key) {
+    return crypto.createHmac('sha1', key).update(base_string).digest('base64');
 }
 
 describe("last_ampersand option", function() {
@@ -14,7 +12,9 @@ describe("last_ampersand option", function() {
         var oauth = OAuth({
             consumer: {
                 secret: 'kAcSOqF21Fu85e7zjz7ZN2U4ZRhfV3WpwPAoE3Z7kBw'
-            }
+            },
+            signature_method: 'HMAC-SHA1',
+            hash_function: hash_function_SHA1
         });
 
         var token = {
@@ -35,6 +35,8 @@ describe("last_ampersand option", function() {
             consumer: {
                 secret: 'kAcSOqF21Fu85e7zjz7ZN2U4ZRhfV3WpwPAoE3Z7kBw'
             },
+            signature_method: 'HMAC-SHA1',
+            hash_function: hash_function_SHA1,
             last_ampersand: false
         });
 
