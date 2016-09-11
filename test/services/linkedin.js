@@ -11,7 +11,7 @@ describe("Linkedin Personal Consumer", function() {
 
     var oauth = new OAuth({
         consumer: {
-            public: process.env.LINKEDIN_CONSUMER_PUBLIC,
+            key: process.env.LINKEDIN_CONSUMER_PUBLIC,
             secret: process.env.LINKEDIN_CONSUMER_SECRET
         },
         signature_method: 'HMAC-SHA1',

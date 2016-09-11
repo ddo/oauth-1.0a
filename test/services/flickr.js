@@ -8,7 +8,7 @@ describe("Flickr Personal Consumer", function() {
 
     var oauth = new OAuth({
         consumer: {
-            public: process.env.FLICKR_CONSUMER_PUBLIC,
+            key: process.env.FLICKR_CONSUMER_key,
             secret: process.env.FLICKR_CONSUMER_SECRET
         },
         signature_method: 'HMAC-SHA1',
@@ -70,7 +70,7 @@ describe("Flickr Personal Consumer", function() {
                 expect(body).to.have.property('oauth_token_secret');
 
                 console.log(body);
-                console.log('http://www.flickr.com/services/oauth/authorize?oauth_token=' + token.public);
+                console.log('http://www.flickr.com/services/oauth/authorize?oauth_token=' + token.key);
 
                 done();
             });
@@ -84,7 +84,7 @@ describe("Flickr Personal Consumer", function() {
     describe.skip("#Access Token", function() {
         //this token get from Request Token
         var token = {
-            public: 'get from Request Token',
+            key: 'get from Request Token',
             secret: 'get from Request Token'
         };
 
@@ -112,7 +112,7 @@ describe("Flickr Personal Consumer", function() {
                 expect(body).to.have.property('oauth_token');
                 expect(body).to.have.property('oauth_token_secret');
 
-                token.public = body.oauth_token;
+                token.key = body.oauth_token;
                 token.secret = body.oauth_token_secret;
 
                 done();
@@ -125,7 +125,7 @@ describe("Flickr Personal Consumer", function() {
     */
     describe("#flickr.test.login", function() {
         var token = {
-            public: process.env.FLICKR_TOKEN_PUBLIC,
+            key: process.env.FLICKR_TOKEN_PUBLIC,
             secret: process.env.FLICKR_SECRET_SECRET
         };
 
@@ -133,7 +133,7 @@ describe("Flickr Personal Consumer", function() {
             url: 'http://api.flickr.com/services/rest/?method=flickr.test.login',
             method: 'GET',
             data: {
-                api_key: token.public,
+                api_key: token.key,
                 format: 'json'
             }
         };
@@ -156,7 +156,7 @@ describe("Flickr Personal Consumer", function() {
     */
     describe("#flickr.test.null", function() {
         var token = {
-            public: process.env.FLICKR_TOKEN_PUBLIC,
+            key: process.env.FLICKR_TOKEN_PUBLIC,
             secret: process.env.FLICKR_SECRET_SECRET
         };
 
@@ -164,7 +164,7 @@ describe("Flickr Personal Consumer", function() {
             url: 'http://api.flickr.com/services/rest/?method=flickr.test.null',
             method: 'GET',
             data: {
-                api_key: token.public,
+                api_key: token.key,
                 format: 'json'
             }
         };

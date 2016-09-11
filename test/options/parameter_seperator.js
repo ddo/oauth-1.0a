@@ -10,7 +10,7 @@ describe("parameter_seperator option", function() {
     describe("default (', ')", function() {
         var oauth = OAuth({
             consumer: {
-                public: 'xvz1evFS4wEEPTGEFPHBog',
+                key: 'xvz1evFS4wEEPTGEFPHBog',
                 secret: 'kAcSOqF21Fu85e7zjz7ZN2U4ZRhfV3WpwPAoE3Z7kBw'
             },
             signature_method: 'HMAC-SHA1',
@@ -28,7 +28,7 @@ describe("parameter_seperator option", function() {
         };
         
         var token = {
-            public: '370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb',
+            key: '370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb',
             secret: 'LswwdoUaIvS8ltyTt5jkRh4J50vUPVVHtR2YPi5kE'
         };
 
@@ -48,7 +48,7 @@ describe("parameter_seperator option", function() {
     describe("-", function() {
         var oauth = OAuth({
             consumer: {
-                public: 'xvz1evFS4wEEPTGEFPHBog',
+                key: 'xvz1evFS4wEEPTGEFPHBog',
                 secret: 'kAcSOqF21Fu85e7zjz7ZN2U4ZRhfV3WpwPAoE3Z7kBw'
             },
             signature_method: 'HMAC-SHA1',
@@ -67,7 +67,7 @@ describe("parameter_seperator option", function() {
         };
 
         var token = {
-            public: '370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb',
+            key: '370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb',
             secret: 'LswwdoUaIvS8ltyTt5jkRh4J50vUPVVHtR2YPi5kE'
         };
 

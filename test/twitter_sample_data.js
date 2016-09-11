@@ -5,7 +5,7 @@ var crypto = require('crypto');
 describe("Twitter Sample", function() {
     var oauth = new OAuth({
         consumer: {
-            public: 'xvz1evFS4wEEPTGEFPHBog',
+            key: 'xvz1evFS4wEEPTGEFPHBog',
             secret: 'kAcSOqF21Fu85e7zjz7ZN2U4ZRhfV3WpwPAoE3Z7kBw'
         },
         signature_method: 'HMAC-SHA1',
@@ -25,7 +25,7 @@ describe("Twitter Sample", function() {
     };
 
     var token = {
-        public: '370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb',
+        key: '370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb',
         secret: 'LswwdoUaIvS8ltyTt5jkRh4J50vUPVVHtR2YPi5kE'
     };
 
@@ -38,12 +38,12 @@ describe("Twitter Sample", function() {
     };
 
     var oauth_data = {
-        oauth_consumer_key: oauth.consumer.public,
+        oauth_consumer_key: oauth.consumer.key,
         oauth_nonce: oauth.getNonce(),
         oauth_signature_method: oauth.signature_method,
         oauth_timestamp: oauth.getTimeStamp(),
         oauth_version: '1.0',
-        oauth_token: token.public
+        oauth_token: token.key
     };
 
     describe("#getParameterString", function() {

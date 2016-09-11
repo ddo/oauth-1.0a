@@ -10,7 +10,7 @@ describe("Signature method", function() {
     describe("HMAC-SHA1 signature method with multiple values", function() {
         var oauth = new OAuth({
             consumer: {
-            public: "batch-dbc2cd8c-6ca8-463b-96e2-6d8683eac6fd",
+            key: "batch-dbc2cd8c-6ca8-463b-96e2-6d8683eac6fd",
             secret: "4S4Rvm25CJZWv7HBg5HOhhlRTBSZ7npl"
             },
             signature_method: 'HMAC-SHA1',

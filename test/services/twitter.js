@@ -6,7 +6,7 @@ var crypto = require('crypto');
 describe("Twitter Personal Consumer", function() {
     var oauth = new OAuth({
         consumer: {
-            public: process.env.TWITTER_CONSUMER_PUBLIC,
+            key: process.env.TWITTER_CONSUMER_PUBLIC,
             secret: process.env.TWITTER_CONSUMER_SECRET
         },
         signature_method: 'HMAC-SHA1',
@@ -16,7 +16,7 @@ describe("Twitter Personal Consumer", function() {
     });
 
     var token = {
-        public: process.env.TWITTER_TOKEN_PUBLIC,
+        key: process.env.TWITTER_TOKEN_PUBLIC,
         secret: process.env.TWITTER_TOKEN_SECRET
     };
 

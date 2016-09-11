@@ -8,7 +8,7 @@ describe("Bitbucket Personal Consumer", function() {
 
     var oauth = new OAuth({
         consumer: {
-            public: process.env.BITBUCKET_CONSUMER_PUBLIC,
+            key: process.env.BITBUCKET_CONSUMER_PUBLIC,
             secret: process.env.BITBUCKET_CONSUMER_SECRET
         },
         signature_method: 'HMAC-SHA1',
