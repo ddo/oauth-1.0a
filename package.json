@@ -1,6 +1,6 @@
 {
   "name": "oauth-1.0a",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "OAuth 1.0a Request Authorization for Node and Browser.",
   "scripts": {
     "test": "make test"
