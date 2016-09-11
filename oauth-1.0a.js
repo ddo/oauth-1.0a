@@ -182,8 +182,13 @@ OAuth.prototype.deParam = function(string) {
 
     for(var i = 0; i < arr.length; i++) {
         var item = arr[i].split('=');
+
+        // '' value
+        item[1] = item[1] || '';
+
         data[item[0]] = decodeURIComponent(item[1]);
     }
+
     return data;
 };
 
@@ -295,6 +300,9 @@ OAuth.prototype.getTimeStamp = function() {
  * @return {Object}
  */
 OAuth.prototype.mergeObject = function(obj1, obj2) {
+    obj1 = obj1 || {};
+    obj2 = obj2 || {};
+
     var merged_obj = obj1;
     for(var key in obj2) {
         merged_obj[key] = obj2[key];
