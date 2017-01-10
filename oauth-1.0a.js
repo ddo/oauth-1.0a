@@ -57,7 +57,7 @@ function OAuth(opts) {
  * @param  {Object} key and secret token
  * @return {Object} OAuth Authorized data
  */
-OAuth.prototype.authorize = function(request, token) {
+OAuth.prototype.authorize = function(request, token, opts) {
     var oauth_data = {
         oauth_consumer_key: this.consumer.key,
         oauth_nonce: this.getNonce(),
@@ -78,6 +78,14 @@ OAuth.prototype.authorize = function(request, token) {
         request.data = {};
     }
 
+    if(!opts) {
+      opts = {};
+    }
+
+    if(opts.includeHashBody) {
+      oauth_data.oauth_hash_body = this.getHashBody(request)
+    }
+
     oauth_data.oauth_signature = this.getSignature(request, token.secret, oauth_data);
 
     return oauth_data;
@@ -92,6 +100,16 @@ OAuth.prototype.authorize = function(request, token) {
  */
 OAuth.prototype.getSignature = function(request, token_secret, oauth_data) {
     return this.hash_function(this.getBaseString(request, oauth_data), this.getSigningKey(token_secret));
+};
+
+/**
+ * Create a OAuth Body Hash
+ * @param {Object} request data
+ */
+OAuth.prototype.getHashBody = function(request) {
+  var body = typeof request.data === 'string' ? request.data : JSON.stringify(request.data)
+
+  return this.hash_function(body, this.getSigningKey(token_secret))
 };
 
 /**
