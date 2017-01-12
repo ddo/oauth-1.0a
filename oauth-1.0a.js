@@ -83,7 +83,7 @@ OAuth.prototype.authorize = function(request, token, opts) {
     }
 
     if(opts.includeHashBody) {
-      oauth_data.oauth_hash_body = this.getHashBody(request)
+      oauth_data.oauth_hash_body = this.getHashBody(request, token)
     }
 
     oauth_data.oauth_signature = this.getSignature(request, token.secret, oauth_data);
@@ -106,10 +106,10 @@ OAuth.prototype.getSignature = function(request, token_secret, oauth_data) {
  * Create a OAuth Body Hash
  * @param {Object} request data
  */
-OAuth.prototype.getHashBody = function(request) {
+OAuth.prototype.getHashBody = function(request, token) {
   var body = typeof request.data === 'string' ? request.data : JSON.stringify(request.data)
 
-  return this.hash_function(body, this.getSigningKey(token_secret))
+  return this.hash_function(body, this.getSigningKey(token.secret))
 };
 
 /**
