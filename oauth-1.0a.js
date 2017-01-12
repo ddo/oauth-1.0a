@@ -57,7 +57,7 @@ function OAuth(opts) {
  * @param  {Object} key and secret token
  * @return {Object} OAuth Authorized data
  */
-OAuth.prototype.authorize = function(request, token, opts) {
+OAuth.prototype.authorize = function(request, token) {
     var oauth_data = {
         oauth_consumer_key: this.consumer.key,
         oauth_nonce: this.getNonce(),
@@ -78,12 +78,8 @@ OAuth.prototype.authorize = function(request, token, opts) {
         request.data = {};
     }
 
-    if(!opts) {
-      opts = {};
-    }
-
-    if(opts.includeHashBody) {
-      oauth_data.oauth_hash_body = this.getHashBody(request, token.secret)
+    if(request.includeBodyHash) {
+      oauth_data.oauth_body_hash = this.getBodyHash(request, token.secret)
     }
 
     oauth_data.oauth_signature = this.getSignature(request, token.secret, oauth_data);
@@ -106,7 +102,7 @@ OAuth.prototype.getSignature = function(request, token_secret, oauth_data) {
  * Create a OAuth Body Hash
  * @param {Object} request data
  */
-OAuth.prototype.getHashBody = function(request, token_secret) {
+OAuth.prototype.getBodyHash = function(request, token_secret) {
   var body = typeof request.data === 'string' ? request.data : JSON.stringify(request.data)
 
   return this.hash_function(body, this.getSigningKey(token_secret))
@@ -134,7 +130,7 @@ OAuth.prototype.getBaseString = function(request, oauth_data) {
  */
 OAuth.prototype.getParameterString = function(request, oauth_data) {
     var base_string_data;
-    if (oauth_data.oauth_hash_body) {
+    if (oauth_data.oauth_body_hash) {
         base_string_data = this.sortObject(this.percentEncodeData(this.mergeObject(oauth_data, this.deParamUrl(request.url))));
     } else {
         base_string_data = this.sortObject(this.percentEncodeData(this.mergeObject(oauth_data, this.mergeObject(request.data, this.deParamUrl(request.url)))));
