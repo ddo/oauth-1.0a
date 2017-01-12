@@ -133,7 +133,12 @@ OAuth.prototype.getBaseString = function(request, oauth_data) {
  * @return {Object} Parameter string data
  */
 OAuth.prototype.getParameterString = function(request, oauth_data) {
-    var base_string_data = this.sortObject(this.percentEncodeData(this.mergeObject(oauth_data, this.mergeObject(request.data, this.deParamUrl(request.url)))));
+    var base_string_data;
+    if (oauth_data.oauth_hash_body) {
+        base_string_data = this.sortObject(this.percentEncodeData(this.mergeObject(oauth_data, this.deParamUrl(request.url))));
+    } else {
+        base_string_data = this.sortObject(this.percentEncodeData(this.mergeObject(oauth_data, this.mergeObject(request.data, this.deParamUrl(request.url)))));
+    }
 
     var data_str = '';
 
