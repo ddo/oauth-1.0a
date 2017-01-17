@@ -273,6 +273,7 @@ $.ajax({
 * url: ``String``
 * method: ``String`` default ``'GET'``
 * data: ``Object`` any custom data you want to send with, including extra oauth option ``oauth_*`` as oauth_callback, oauth_version...
+* includeBodyHash: ``Boolean`` default ``false`` set to true if you want ``oauth_body_hash`` signing
 
 ```js
 var request_data = {

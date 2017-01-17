@@ -78,6 +78,10 @@ OAuth.prototype.authorize = function(request, token) {
         request.data = {};
     }
 
+    if(request.includeBodyHash) {
+      oauth_data.oauth_body_hash = this.getBodyHash(request, token.secret)
+    }
+
     oauth_data.oauth_signature = this.getSignature(request, token.secret, oauth_data);
 
     return oauth_data;
@@ -92,6 +96,16 @@ OAuth.prototype.authorize = function(request, token) {
  */
 OAuth.prototype.getSignature = function(request, token_secret, oauth_data) {
     return this.hash_function(this.getBaseString(request, oauth_data), this.getSigningKey(token_secret));
+};
+
+/**
+ * Create a OAuth Body Hash
+ * @param {Object} request data
+ */
+OAuth.prototype.getBodyHash = function(request, token_secret) {
+  var body = typeof request.data === 'string' ? request.data : JSON.stringify(request.data)
+
+  return this.hash_function(body, this.getSigningKey(token_secret))
 };
 
 /**
@@ -115,7 +129,12 @@ OAuth.prototype.getBaseString = function(request, oauth_data) {
  * @return {Object} Parameter string data
  */
 OAuth.prototype.getParameterString = function(request, oauth_data) {
-    var base_string_data = this.sortObject(this.percentEncodeData(this.mergeObject(oauth_data, this.mergeObject(request.data, this.deParamUrl(request.url)))));
+    var base_string_data;
+    if (oauth_data.oauth_body_hash) {
+        base_string_data = this.sortObject(this.percentEncodeData(this.mergeObject(oauth_data, this.deParamUrl(request.url))));
+    } else {
+        base_string_data = this.sortObject(this.percentEncodeData(this.mergeObject(oauth_data, this.mergeObject(request.data, this.deParamUrl(request.url)))));
+    }
 
     var data_str = '';
 
