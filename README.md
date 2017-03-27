@@ -12,7 +12,7 @@ oauth-1.0a ![semaphore][semaphore-img]
 [![dependency][dependency-img]][dependency-url]
 
 [semaphore-img]: https://semaphoreci.com/api/v1/ddo/oauth-1-0a/branches/master/badge.svg
-[semaphore-url]: https://semaphoreci.com/ddo/oauth-1-0a)
+[semaphore-url]: https://semaphoreci.com/ddo/oauth-1-0a
 
 [download-img]: https://img.shields.io/npm/dm/oauth-1.0a.svg?style=flat-square
 [download-url]: https://www.npmjs.com/package/oauth-1.0a
