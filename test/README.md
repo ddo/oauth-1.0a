@@ -1,8 +1,8 @@
-##Core testing
+## Core testing
 
 ``twitter_sample_data.js``
 
-##Services
+## Services
 
 * Twitter
 * Flickr
@@ -10,7 +10,7 @@
 * Bitbucket
 * Openbankproject
 
-##Setup
+## Setup
 
 Please these define Node environment variables:
 
@@ -29,6 +29,6 @@ Please these define Node environment variables:
 * ``OPENBANK_CONSUMER_PUBLIC``
 * ``OPENBANK_CONSUMER_SECRET``
 
-##Run test
+## Run test
 
 ``make test``
