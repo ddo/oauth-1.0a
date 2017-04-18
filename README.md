@@ -107,9 +107,9 @@ var oauth = OAuth({
 * sha256: ``CryptoJS.HmacSHA256(base_string, key).toString(CryptoJS.enc.Base64);``
 * ...
 
-##Installation
+## Installation
 
-###Node.js
+### Node.js
     $ npm install oauth-1.0a --production
 
 * You can use the native crypto package for ``hash_function``.
@@ -121,7 +121,7 @@ var oauth = OAuth({
 ```
 
 
-###Browser
+### Browser
 Download oauth-1.0a.js [here](https://raw.githubusercontent.com/ddo/oauth-1.0a/master/oauth-1.0a.js)
 
 And also your crypto lib. For example [CryptoJS](https://code.google.com/archive/p/crypto-js/)
@@ -136,9 +136,9 @@ And also your crypto lib. For example [CryptoJS](https://code.google.com/archive
 <script src="oauth-1.0a.js"></script>
 ```
 
-##Examples
+## Examples
 
-###Work with [request](https://github.com/mikeal/request) (Node.js)
+### Work with [request](https://github.com/mikeal/request) (Node.js)
 
 Depencies
 
@@ -206,7 +206,7 @@ request({
 });
 ```
 
-###Work with [jQuery.ajax](http://api.jquery.com/jQuery.ajax/) (Browser)
+### Work with [jQuery.ajax](http://api.jquery.com/jQuery.ajax/) (Browser)
 
 **Caution:** please make sure you understand what happen when use OAuth protocol at client side [here](#client-side-usage-caution)
 
@@ -268,7 +268,7 @@ $.ajax({
 });
 ```
 
-##.authorize(/* options */)
+## .authorize(/* options */)
 
 * url: ``String``
 * method: ``String`` default ``'GET'``
@@ -285,7 +285,7 @@ var request_data = {
 };
 ```
 
-##.toHeader(/* signed data */)
+## .toHeader(/* signed data */)
 
 convert signed data into headers
 
@@ -300,7 +300,7 @@ $.ajax({
 });
 ```
 
-##Init Options
+## Init Options
 ```js
 var oauth = OAuth(/* options */);
 ```
@@ -323,7 +323,7 @@ var oauth = OAuth(/* options */);
 
 > oauth_signature is set to the concatenated encoded values of the Consumer Secret and Token Secret, separated by a '&' character (ASCII code 38), even if either secret is empty
 
-##Notes
+## Notes
 
 * Some OAuth requests without token use ``.authorize(request_data)`` instead of ``.authorize(request_data, {})``
 
@@ -334,7 +334,7 @@ var oauth = OAuth(/* options */);
     * Node.js: [oauth-request](https://github.com/ddo/oauth-request)
     * jquery: *soon*
 
-##Client Side Usage Caution
+## Client Side Usage Caution
 
 OAuth is based around allowing tools and websites to talk to each other.
 However, JavaScript running in web browsers is hampered by security restrictions that prevent code running on one website from accessing data stored or served on another.
@@ -349,4 +349,4 @@ On the bright side, some platforms use JavaScript as their language, but enable 
 
 For those platforms, this library should come in handy.
 
-##[Changelog](https://github.com/ddo/oauth-1.0a/releases)
+## [Changelog](https://github.com/ddo/oauth-1.0a/releases)
