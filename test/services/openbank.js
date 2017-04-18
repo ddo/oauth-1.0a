@@ -3,7 +3,7 @@ var Request = require('request');
 var OAuth   = require('../../oauth-1.0a');
 var crypto = require('crypto');
 
-describe("Openbank Personal Consumer", function() {
+describe.skip("Openbank Personal Consumer", function() {
     this.timeout(10000);
 
     var oauth = new OAuth({
