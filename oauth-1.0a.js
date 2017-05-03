@@ -272,14 +272,18 @@ OAuth.prototype.percentEncodeData = function(data) {
  * @return {String} Header data key - value
  */
 OAuth.prototype.toHeader = function(oauth_data) {
-    oauth_data = this.sortObject(oauth_data);
+    var keys = Object.keys(oauth_data);
+    keys.sort();
 
     var header_value = 'OAuth ';
-
-    for(var key in oauth_data) {
-        if (key.indexOf('oauth_') === -1)
-            continue;
+    for(var i = 0; i < keys.length; i++) {
+        var key = keys[i];
+        if (key == 'oauth_signature') continue;
         header_value += this.percentEncode(key) + '="' + this.percentEncode(oauth_data[key]) + '"' + this.parameter_seperator;
+    }
+
+    if (oauth_data.oauth_signature) {
+        header_value += 'oauth_signature="' + this.percentEncode(oauth_data.oauth_signature) + '"' + this.parameter_seperator;
     }
 
     return {
