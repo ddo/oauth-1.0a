@@ -278,6 +278,9 @@ OAuth.prototype.toHeader = function(oauth_data) {
     var header_value = 'OAuth ';
 
     for(var i = 0; i < sorted.length; i++) {
+        if (sorted[i].key.indexOf('oauth_') === -1 && sorted[i].key !== "realm")
+            continue;
+
         header_value += this.percentEncode(sorted[i].key) + '="' + this.percentEncode(sorted[i].value) + '"' + this.parameter_seperator;
     }
 
