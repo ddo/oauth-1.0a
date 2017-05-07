@@ -28,6 +28,10 @@ describe("nonce_length option", function() {
     describe("random length", function() {
         var random = parseInt(Math.random()*100, 10);
 
+        while(random === 0) {
+            random = parseInt(Math.random()*100, 10);
+        }
+
         var oauth = new OAuth({
             consumer: {},
             nonce_length: random
