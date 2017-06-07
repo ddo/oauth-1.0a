@@ -70,7 +70,7 @@ OAuth.prototype.authorize = function(request, token) {
         token = {};
     }
 
-    if(token.key) {
+    if(token.key !== undefined) {
         oauth_data.oauth_token = token.key;
     }
 
