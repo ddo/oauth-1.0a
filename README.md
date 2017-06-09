@@ -319,6 +319,7 @@ var oauth = OAuth(/* options */);
 * ``nonce_length``: ``Int`` default ``32``
 * ``version``: ``String`` default ``'1.0'``
 * ``parameter_seperator``: ``String`` for header only, default ``', '``. Note that there is a space after ``,``
+* ``realm``: ``String``
 * ``last_ampersand``: ``Bool`` default ``true``. For some services if there is no Token Secret then no need ``&`` at the end. Check [oauth doc](http://oauth.net/core/1.0a/#anchor22) for more information
 
 > oauth_signature is set to the concatenated encoded values of the Consumer Secret and Token Secret, separated by a '&' character (ASCII code 38), even if either secret is empty
