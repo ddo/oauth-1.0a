@@ -47,7 +47,7 @@ Tested on some popular OAuth 1.0a services:
 
 ```js
 var crypto = require('crypto');
-...
+var OAuth = require('oauth-1.0a');
 
 var oauth = OAuth({
     consumer: {
