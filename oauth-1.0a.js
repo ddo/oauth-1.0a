@@ -339,7 +339,7 @@ OAuth.prototype.mergeObject = function(obj1, obj2) {
 /**
  * Sort object by key
  * @param  {Object} data
- * @return {Object} sorted object
+ * @return {Array} sorted array
  */
 OAuth.prototype.sortObject = function(data) {
     var keys = Object.keys(data);
