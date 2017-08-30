@@ -45,6 +45,7 @@ function OAuth(opts) {
     }
 
     this.hash_function = opts.hash_function;
+    this.body_hash_function = opts.body_hash_function || this.hash_function;
 }
 
 /**
@@ -106,7 +107,11 @@ OAuth.prototype.getSignature = function(request, token_secret, oauth_data) {
 OAuth.prototype.getBodyHash = function(request, token_secret) {
   var body = typeof request.data === 'string' ? request.data : JSON.stringify(request.data)
 
-  return this.hash_function(body, this.getSigningKey(token_secret))
+  if (!this.body_hash_function) {
+    throw new Error('body_hash_function option is required');
+  }
+
+  return this.body_hash_function(body, this.getSigningKey(token_secret))
 };
 
 /**
