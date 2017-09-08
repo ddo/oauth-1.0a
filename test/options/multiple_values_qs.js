@@ -36,7 +36,7 @@ describe("Signature method", function() {
         var result = oauth.authorize(request_data);
 
         it("Signature should match", function() {
-            expect(result.oauth_signature).to.equal("b6nMehqpHnpx0VlZB9IhqFh4Jq0%3D");
+            expect(result.oauth_signature).to.equal("b6nMehqpHnpx0VlZB9IhqFh4Jq0=");
         });
 
         it("Nonce should match", function() {
