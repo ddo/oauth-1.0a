@@ -207,7 +207,20 @@ OAuth.prototype.deParam = function(string) {
         // '' value
         item[1] = item[1] || '';
 
-        data[item[0]] = decodeURIComponent(item[1]);
+        // check if the key already exists
+        // this can occur if the QS part of the url contains duplicate keys like this: ?formkey=formvalue1&formkey=formvalue2
+        if (data[item[0]]){
+          // the key exists already
+          if (!Array.isArray(data[item[0]])) {
+            // replace the value with an array containing the already present value
+            data[item[0]] = [data[item[0]]];
+          }
+          // and add the new found value to it
+          data[item[0]].push(decodeURIComponent(item[1]));
+        } else {
+          // it doesn't exist, just put the found value in the data object
+          data[item[0]] = decodeURIComponent(item[1]);
+        }
     }
 
     return data;
