@@ -351,3 +351,17 @@ On the bright side, some platforms use JavaScript as their language, but enable 
 For those platforms, this library should come in handy.
 
 ## [Changelog](https://github.com/ddo/oauth-1.0a/releases)
+
+## Contributors
+
+* [ddo](http://github.com/ddo)
+* [paulrutter](http://github.com/paulrutter)
+* [zeusdude](http://github.com/zeusdude)
+* [asharpe-squiz](http://github.com/asharpe-squiz)
+* [bryant1410](http://github.com/bryant1410)
+* [kaycebasques](http://github.com/kaycebasques)
+* [gitter-badger](http://github.com/gitter-badger)
+* [MartinMoizard](http://github.com/MartinMoizard)
+* [bitdeli-chef](http://github.com/bitdeli-chef)
+* [francescosalvi](http://github.com/francescosalvi)
+* [abutterf](http://github.com/abutterf)
