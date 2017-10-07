@@ -1,14 +1,10 @@
-oauth-1.0a [![semaphore][semaphore-img]][semaphore-url]
-==========
+# OAuth 1.0a Request Authorization [![semaphore][semaphore-img]][semaphore-url]
 
 [![Join the chat at https://gitter.im/ddo/oauth-1.0a](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ddo/oauth-1.0a?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 [![version][version-img]][version-url]
 [![download][download-img]][download-url]
-
 [![coverage][coverage-img]][coverage-url]
 [![climate][climate-img]][climate-url]
-
 [![dependency][dependency-img]][dependency-url]
 
 [semaphore-img]: https://semaphoreci.com/api/v1/ddo/oauth-1-0a/branches/master/badge.svg
@@ -62,16 +58,19 @@ var oauth = OAuth({
 ```
 
 Get OAuth request data then you can use with your http client easily :)
+
 ```js
 oauth.authorize(request, token);
 ```
 
 Or if you want to get as a header key-value data
+
 ```js
 oauth.toHeader(oauth_data);
 ```
 
 ## Crypto
+
 From version ``2.0.0``, crypto/hash stuff is separated.
 ``oauth-1.0a`` will use your ``hash_function`` to sign.
 
@@ -96,32 +95,34 @@ var oauth = OAuth({
 });
 ```
 
-* sha1: ``crypto.createHmac('sha1', key).update(base_string).digest('base64');``
-* sha256: ``crypto.createHmac('sha256', key).update(base_string).digest('base64');``
-* ...
+* sha1: `crypto.createHmac('sha1', key).update(base_string).digest('base64');`
+* sha256: `crypto.createHmac('sha256', key).update(base_string).digest('base64');`
 
 #### Browser
+
 *using google CryptoJS*
 
-* sha1: ``CryptoJS.HmacSHA1(base_string, key).toString(CryptoJS.enc.Base64);``
-* sha256: ``CryptoJS.HmacSHA256(base_string, key).toString(CryptoJS.enc.Base64);``
-* ...
+* sha1: `CryptoJS.HmacSHA1(base_string, key).toString(CryptoJS.enc.Base64);`
+* sha256: `CryptoJS.HmacSHA256(base_string, key).toString(CryptoJS.enc.Base64);`
 
 ## Installation
 
 ### Node.js
-    $ npm install oauth-1.0a --production
+
+```bash
+$ npm install oauth-1.0a --production
+```
 
 * You can use the native crypto package for ``hash_function``.
 * It is possible for Node.js to be built without including support for the crypto module. In such cases, calling ``require('crypto')`` will result in an error being thrown.
 * You can use your own hash function which has format as:
 
 ```js
-    function(base_string, key) return <string>
+function(base_string, key) return <string>
 ```
 
-
 ### Browser
+
 Download oauth-1.0a.js [here](https://raw.githubusercontent.com/ddo/oauth-1.0a/master/oauth-1.0a.js)
 
 And also your crypto lib. For example [CryptoJS](https://code.google.com/archive/p/crypto-js/)
@@ -131,7 +132,6 @@ And also your crypto lib. For example [CryptoJS](https://code.google.com/archive
 <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha1.js"></script>
 <!-- sha256 -->
 <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha256.js"></script>
-
 <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-base64-min.js"></script>
 <script src="oauth-1.0a.js"></script>
 ```
@@ -149,6 +149,7 @@ var crypto  = require('crypto');
 ```
 
 Init
+
 ```js
 var oauth = OAuth({
     consumer: {
@@ -163,9 +164,10 @@ var oauth = OAuth({
 ```
 
 Your request data
+
 ```js
 var request_data = {
-	url: 'https://api.twitter.com/1/statuses/update.json?include_entities=true',
+    url: 'https://api.twitter.com/1/statuses/update.json?include_entities=true',
     method: 'POST',
     data: {
         status: 'Hello Ladies + Gentlemen, a signed OAuth request!'
@@ -174,6 +176,7 @@ var request_data = {
 ```
 
 Your token (optional for some requests)
+
 ```js
 var token = {
     key: '370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb',
@@ -185,11 +188,11 @@ Call a request
 
 ```js
 request({
-	url: request_data.url,
-	method: request_data.method,
-	form: oauth.authorize(request_data, token)
+    url: request_data.url,
+    method: request_data.method,
+    form: oauth.authorize(request_data, token)
 }, function(error, response, body) {
-	//process your data here
+    //process your data here
 });
 ```
 
@@ -197,12 +200,12 @@ Or if you want to send OAuth data in request's header
 
 ```js
 request({
-	url: request_data.url,
-	method: request_data.method,
-	form: request_data.data,
-	headers: oauth.toHeader(oauth.authorize(request_data, token))
+    url: request_data.url,
+    method: request_data.method,
+    form: request_data.data,
+    headers: oauth.toHeader(oauth.authorize(request_data, token))
 }, function(error, response, body) {
-	//process your data here
+    //process your data here
 });
 ```
 
@@ -211,6 +214,7 @@ request({
 **Caution:** please make sure you understand what happen when use OAuth protocol at client side [here](#client-side-usage-caution)
 
 Init
+
 ```js
 var oauth = OAuth({
     consumer: {
@@ -225,6 +229,7 @@ var oauth = OAuth({
 ```
 
 Your request data
+
 ```js
 var request_data = {
 	url: 'https://api.twitter.com/1/statuses/update.json?include_entities=true',
@@ -236,6 +241,7 @@ var request_data = {
 ```
 
 Your token (optional for some requests)
+
 ```js
 var token = {
     key: '370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb',
@@ -247,11 +253,11 @@ Call a request
 
 ```js
 $.ajax({
-	url: request_data.url,
-	type: request_data.method,
-	data: oauth.authorize(request_data, token)
+    url: request_data.url,
+    type: request_data.method,
+    data: oauth.authorize(request_data, token)
 }).done(function(data) {
-	//process your data here
+    //process your data here
 });
 ```
 
@@ -259,12 +265,12 @@ Or if you want to send OAuth data in request's header
 
 ```js
 $.ajax({
-	url: request_data.url,
-	type: request_data.method,
-	data: request_data.data,
-	headers: oauth.toHeader(oauth.authorize(request_data, token))
+    url: request_data.url,
+    type: request_data.method,
+    data: request_data.data,
+    headers: oauth.toHeader(oauth.authorize(request_data, token))
 }).done(function(data) {
-	//process your data here
+    //process your data here
 });
 ```
 
@@ -301,6 +307,7 @@ $.ajax({
 ```
 
 ## Init Options
+
 ```js
 var oauth = OAuth(/* options */);
 ```
@@ -327,13 +334,10 @@ var oauth = OAuth(/* options */);
 ## Notes
 
 * Some OAuth requests without token use ``.authorize(request_data)`` instead of ``.authorize(request_data, {})``
-
 * Or just token key only ``.authorize(request_data, {key: 'xxxxx'})``
-
 * Want easier? Take a look:
-
-    * Node.js: [oauth-request](https://github.com/ddo/oauth-request)
-    * jquery: *soon*
+  * Node.js: [oauth-request](https://github.com/ddo/oauth-request)
+  * jquery: *soon*
 
 ## Client Side Usage Caution
 
@@ -346,8 +350,12 @@ On the bright side, some platforms use JavaScript as their language, but enable 
 
 * **Google/Firefox/Safari extensions**
 * **Google Gadgets**
-* **Microsoft Sidebar**...
+* **Microsoft Sidebar**
 
 For those platforms, this library should come in handy.
 
 ## [Changelog](https://github.com/ddo/oauth-1.0a/releases)
+
+## License
+
+MIT
