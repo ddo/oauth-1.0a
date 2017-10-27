@@ -132,7 +132,7 @@ And also your crypto lib. For example [CryptoJS](https://code.google.com/archive
 
 ## Example
 
-### Work with the [request](https://github.com/mikeal/request) library: (Node.js)
+### Work with the [request](https://github.com/mikeal/request) library (Node.js):
 
 ```js
 // Dependencies
@@ -186,7 +186,7 @@ request({
 });
 ```
 
-### Work with [jQuery.ajax](http://api.jquery.com/jQuery.ajax/) (Browser)
+### Work with [jQuery.ajax](http://api.jquery.com/jQuery.ajax/) (Browser):
 
 **Caution:** Please make sure you understand what happens when using OAuth protocol on the client side [here](#client-side-usage-caution)
 
