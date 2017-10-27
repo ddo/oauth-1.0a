@@ -104,14 +104,14 @@ const oauth = OAuth({
 ### Node.js
 
 ```bash
-$ npm install oauth-1.0a --production --save
+$ npm install oauth-1.0a --production
 ```
 
 * You can use the native crypto package for ``hash_function``.
 * It is possible for Node.js to be built without including support for the crypto module. In such cases, calling ``require('crypto')`` will result in an error being thrown.
 * You can use your own hash function which has format as:
 
-```js
+```
 function(base_string, key) return <string>
 ```
 
@@ -132,9 +132,9 @@ And also your crypto lib. For example [CryptoJS](https://code.google.com/archive
 
 ## Example
 
-### Work with [request](https://github.com/mikeal/request) (Node.js)
+### Work with the [request](https://github.com/mikeal/request) library: (Node.js)
 
-```
+```js
 // Dependencies
 const request = require('request');
 const OAuth   = require('oauth-1.0a');
