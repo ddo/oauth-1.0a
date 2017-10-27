@@ -42,28 +42,25 @@ Tested on some popular OAuth 1.0a services:
 ## Quick Start
 
 ```js
-var crypto = require('crypto');
-var OAuth = require('oauth-1.0a');
+const crypto = require('crypto');
+const OAuth = require('oauth-1.0a');
 
-var oauth = OAuth({
-    consumer: {
-        key: '<your consumer key>',
-        secret: '<your consumer secret>'
-    },
-    signature_method: 'HMAC-SHA1',
-    hash_function: function(base_string, key) {
-        return crypto.createHmac('sha1', key).update(base_string).digest('base64');
-    }
+const oauth = OAuth({
+  consumer: { key: '<your consumer key>', secret: '<your consumer secret>'},
+  signature_method: 'HMAC-SHA1',
+  hash_function(base_string, key) {
+    return crypto.createHmac('sha1', key).update(base_string).digest('base64');
+  }
 });
 ```
 
-Get OAuth request data then you can use with your http client easily :)
+Get OAuth request data that can be easily used with your http client:
 
 ```js
 oauth.authorize(request, token);
 ```
 
-Or if you want to get as a header key-value data
+Or if you want to get as a header key-value pair:
 
 ```js
 oauth.toHeader(oauth_data);
@@ -71,7 +68,7 @@ oauth.toHeader(oauth_data);
 
 ## Crypto
 
-From version ``2.0.0``, crypto/hash stuff is separated.
+Starting with version ``2.0.0``, crypto/hash stuff is separated.
 ``oauth-1.0a`` will use your ``hash_function`` to sign.
 
 ### Example
@@ -79,17 +76,14 @@ From version ``2.0.0``, crypto/hash stuff is separated.
 #### Node.js
 
 ```js
-var crypto = require('crypto');
+const crypto = require('crypto');
 
 function hash_function_sha1(base_string, key) {
-    return crypto.createHmac('sha1', key).update(base_string).digest('base64');
+  return crypto.createHmac('sha1', key).update(base_string).digest('base64');
 }
 
-var oauth = OAuth({
-    consumer: {
-        key: '<your consumer key>',
-        secret: '<your consumer secret>'
-    },
+const oauth = OAuth({
+    consumer: { key: '<your consumer key>', secret: '<your consumer secret>' },
     signature_method: 'HMAC-SHA1',
     hash_function: hash_function_sha1
 });
@@ -100,7 +94,7 @@ var oauth = OAuth({
 
 #### Browser
 
-*using google CryptoJS*
+*Using Google's CryptoJS*
 
 * sha1: `CryptoJS.HmacSHA1(base_string, key).toString(CryptoJS.enc.Base64);`
 * sha256: `CryptoJS.HmacSHA256(base_string, key).toString(CryptoJS.enc.Base64);`
@@ -110,7 +104,7 @@ var oauth = OAuth({
 ### Node.js
 
 ```bash
-$ npm install oauth-1.0a --production
+$ npm install oauth-1.0a --production --save
 ```
 
 * You can use the native crypto package for ``hash_function``.
@@ -136,67 +130,50 @@ And also your crypto lib. For example [CryptoJS](https://code.google.com/archive
 <script src="oauth-1.0a.js"></script>
 ```
 
-## Examples
+## Example
 
 ### Work with [request](https://github.com/mikeal/request) (Node.js)
 
-Depencies
-
-```js
-var request = require('request');
-var OAuth   = require('oauth-1.0a');
-var crypto  = require('crypto');
 ```
+// Dependencies
+const request = require('request');
+const OAuth   = require('oauth-1.0a');
+const crypto  = require('crypto');
 
-Init
-
-```js
-var oauth = OAuth({
-    consumer: {
-        key: 'xvz1evFS4wEEPTGEFPHBog',
-        secret: 'kAcSOqF21Fu85e7zjz7ZN2U4ZRhfV3WpwPAoE3Z7kBw'
-    },
-    signature_method: 'HMAC-SHA1',
-    hash_function: function(base_string, key) {
-        return crypto.createHmac('sha1', key).update(base_string).digest('base64');
-    }
+// Initialize
+const oauth = OAuth({
+  consumer: {
+    key: 'xvz1evFS4wEEPTGEFPHBog',
+    secret: 'kAcSOqF21Fu85e7zjz7ZN2U4ZRhfV3WpwPAoE3Z7kBw'
+  },
+  signature_method: 'HMAC-SHA1',
+  hash_function(base_string, key) {
+    return crypto.createHmac('sha1', key).update(base_string).digest('base64');
+  }
 });
-```
 
-Your request data
-
-```js
-var request_data = {
-    url: 'https://api.twitter.com/1/statuses/update.json?include_entities=true',
-    method: 'POST',
-    data: {
-        status: 'Hello Ladies + Gentlemen, a signed OAuth request!'
-    }
+const request_data = {
+  url: 'https://api.twitter.com/1/statuses/update.json?include_entities=true',
+  method: 'POST',
+  data: { status: 'Hello Ladies + Gentlemen, a signed OAuth request!' }
 };
-```
 
-Your token (optional for some requests)
-
-```js
-var token = {
-    key: '370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb',
-    secret: 'LswwdoUaIvS8ltyTt5jkRh4J50vUPVVHtR2YPi5kE'
+// Note: The token is optional for some requests
+const token = {
+  key: '370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb',
+  secret: 'LswwdoUaIvS8ltyTt5jkRh4J50vUPVVHtR2YPi5kE'
 };
-```
 
-Call a request
-
-```js
 request({
-    url: request_data.url,
-    method: request_data.method,
-    form: oauth.authorize(request_data, token)
+  url: request_data.url,
+  method: request_data.method,
+  form: oauth.authorize(request_data, token)
 }, function(error, response, body) {
-    //process your data here
+  // Process your data here
 });
 ```
 
-Or if you want to send OAuth data in request's header
+Or if you want to send OAuth data in request's header:
 
 ```js
 request({
@@ -205,72 +182,58 @@ request({
     form: request_data.data,
     headers: oauth.toHeader(oauth.authorize(request_data, token))
 }, function(error, response, body) {
-    //process your data here
+    // Process your data here
 });
 ```
 
 ### Work with [jQuery.ajax](http://api.jquery.com/jQuery.ajax/) (Browser)
 
-**Caution:** please make sure you understand what happen when use OAuth protocol at client side [here](#client-side-usage-caution)
-
-Init
+**Caution:** Please make sure you understand what happens when using OAuth protocol on the client side [here](#client-side-usage-caution)
 
 ```js
-var oauth = OAuth({
-    consumer: {
-        key: 'xvz1evFS4wEEPTGEFPHBog',
-        secret: 'kAcSOqF21Fu85e7zjz7ZN2U4ZRhfV3WpwPAoE3Z7kBw'
-    },
-    signature_method: 'HMAC-SHA1',
-    hash_function: function(base_string, key) {
-        return CryptoJS.HmacSHA1(base_string, key).toString(CryptoJS.enc.Base64);
-    }
+// Initialize
+const oauth = OAuth({
+  consumer: {
+    key: 'xvz1evFS4wEEPTGEFPHBog',
+    secret: 'kAcSOqF21Fu85e7zjz7ZN2U4ZRhfV3WpwPAoE3Z7kBw'
+  },
+  signature_method: 'HMAC-SHA1',
+  hash_function(base_string, key) {
+    return CryptoJS.HmacSHA1(base_string, key).toString(CryptoJS.enc.Base64);
+  }
+});
+
+const request_data = {
+  url: 'https://api.twitter.com/1/statuses/update.json?include_entities=true',
+  method: 'POST',
+  data: { status: 'Hello Ladies + Gentlemen, a signed OAuth request!' }
+};
+
+// Note: The token is optional for some requests
+const token = {
+  key: '370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb',
+  secret: 'LswwdoUaIvS8ltyTt5jkRh4J50vUPVVHtR2YPi5kE'
+};
+
+$.ajax({
+  url: request_data.url,
+  type: request_data.method,
+  data: oauth.authorize(request_data, token)
+}).done(function(data) {
+  // Process your data here
 });
 ```
 
-Your request data
-
-```js
-var request_data = {
-	url: 'https://api.twitter.com/1/statuses/update.json?include_entities=true',
-    method: 'POST',
-    data: {
-        status: 'Hello Ladies + Gentlemen, a signed OAuth request!'
-    }
-};
-```
-
-Your token (optional for some requests)
-
-```js
-var token = {
-    key: '370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb',
-    secret: 'LswwdoUaIvS8ltyTt5jkRh4J50vUPVVHtR2YPi5kE'
-};
-```
-
-Call a request
+Or if you want to send OAuth data in request's header:
 
 ```js
 $.ajax({
-    url: request_data.url,
-    type: request_data.method,
-    data: oauth.authorize(request_data, token)
+  url: request_data.url,
+  type: request_data.method,
+  data: request_data.data,
+  headers: oauth.toHeader(oauth.authorize(request_data, token))
 }).done(function(data) {
-    //process your data here
-});
-```
-
-Or if you want to send OAuth data in request's header
-
-```js
-$.ajax({
-    url: request_data.url,
-    type: request_data.method,
-    data: request_data.data,
-    headers: oauth.toHeader(oauth.authorize(request_data, token))
-}).done(function(data) {
-    //process your data here
+  // Process your data here
 });
 ```
 
@@ -282,42 +245,40 @@ $.ajax({
 * includeBodyHash: ``Boolean`` default ``false`` set to true if you want ``oauth_body_hash`` signing
 
 ```js
-var request_data = {
-    url: 'https://bitbucket.org/api/1.0/oauth/request_token',
-    method: 'POST',
-    data: {
-        oauth_callback: 'http://www.ddo.me'
-    }
+const request_data = {
+  url: 'https://bitbucket.org/api/1.0/oauth/request_token',
+  method: 'POST',
+  data: { oauth_callback: 'http://www.ddo.me' }
 };
 ```
 
 ## .toHeader(/* signed data */)
 
-convert signed data into headers
+Convert signed data into headers:
 
 ```js
 $.ajax({
-    url: request_data.url,
-    type: request_data.method,
-    data: request_data.data,
-    headers: oauth.toHeader(oauth.authorize(request_data, token))
+  url: request_data.url,
+  type: request_data.method,
+  data: request_data.data,
+  headers: oauth.toHeader(oauth.authorize(request_data, token))
 }).done(function(data) {
-    //process your data here
+  // Process your data here
 });
 ```
 
 ## Init Options
 
 ```js
-var oauth = OAuth(/* options */);
+const oauth = OAuth(/* options */);
 ```
 
 * ``consumer``: ``Object`` ``Required`` your consumer keys
 
 ```js
 {
-    key: <your consumer key>,
-    secret: <your consumer secret>
+  key: <your consumer key>,
+  secret: <your consumer secret>
 }
 ```
 
@@ -341,8 +302,7 @@ var oauth = OAuth(/* options */);
 
 ## Client Side Usage Caution
 
-OAuth is based around allowing tools and websites to talk to each other.
-However, JavaScript running in web browsers is hampered by security restrictions that prevent code running on one website from accessing data stored or served on another.
+OAuth is based around allowing tools and websites to talk to each other. However, JavaScript running in web browsers is hampered by security restrictions that prevent code running on one website from accessing data stored or served on another.
 
 Before you start hacking, make sure you understand the limitations posed by cross-domain XMLHttpRequest.
 
