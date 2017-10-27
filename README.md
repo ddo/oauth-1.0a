@@ -83,9 +83,9 @@ function hash_function_sha1(base_string, key) {
 }
 
 const oauth = OAuth({
-    consumer: { key: '<your consumer key>', secret: '<your consumer secret>' },
-    signature_method: 'HMAC-SHA1',
-    hash_function: hash_function_sha1
+  consumer: { key: '<your consumer key>', secret: '<your consumer secret>' },
+  signature_method: 'HMAC-SHA1',
+  hash_function: hash_function_sha1
 });
 ```
 
