@@ -242,7 +242,7 @@ $.ajax({
 * url: ``String``
 * method: ``String`` default ``'GET'``
 * data: ``Object`` any custom data you want to send with, including extra oauth option ``oauth_*`` as oauth_callback, oauth_version...
-* includeBodyHash: ``Boolean`` default ``false`` set to true if you want ``oauth_body_hash`` signing
+* includeBodyHash: ``Boolean`` default ``false`` set to true if you want ``oauth_body_hash`` signing (you will need to have define the ``body_hash_function`` in most cases - for  HMAC-SHA1 Oauth signature method, the ``body_hash_function`` should return a SHA1 hash).
 
 ```js
 const request_data = {
@@ -284,6 +284,7 @@ const oauth = OAuth(/* options */);
 
 * ``signature_method``: ``String`` default ``'PLAINTEXT'``
 * ``hash_function``: ``Function`` if ``signature_method`` = ``'PLAINTEXT'`` default ``return key``
+* ``body_hash_function``: ``Function`` default to ``hash_function``
 * ``nonce_length``: ``Int`` default ``32``
 * ``version``: ``String`` default ``'1.0'``
 * ``parameter_seperator``: ``String`` for header only, default ``', '``. Note that there is a space after ``,``
