@@ -4,17 +4,29 @@ var OAuth   = require('../../oauth-1.0a');
 var crypto = require('crypto');
 
 describe("Flickr Personal Consumer", function() {
-    this.timeout(10000);
+    var oauth;
 
-    var oauth = new OAuth({
-        consumer: {
-            key: process.env.FLICKR_CONSUMER_key,
-            secret: process.env.FLICKR_CONSUMER_SECRET
-        },
-        signature_method: 'HMAC-SHA1',
-        hash_function: function(base_string, key) {
-            return crypto.createHmac('sha1', key).update(base_string).digest('base64');
+    beforeEach(function () {
+        if (
+            !process.env.FLICKR_CONSUMER_key ||
+            !process.env.FLICKR_CONSUMER_SECRET
+        ) {
+            this.skip('Flickr secret not set.');
+            return;
         }
+
+        this.timeout(10000);
+
+        oauth = new OAuth({
+            consumer: {
+                key: process.env.FLICKR_CONSUMER_key,
+                secret: process.env.FLICKR_CONSUMER_SECRET
+            },
+            signature_method: 'HMAC-SHA1',
+            hash_function: function(base_string, key) {
+                return crypto.createHmac('sha1', key).update(base_string).digest('base64');
+            }
+        });
     });
 
     describe.skip("#Request Token", function() {
