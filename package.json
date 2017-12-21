@@ -24,5 +24,8 @@
     "istanbul": "^0.4.5",
     "mocha": "^4.0.1",
     "request": "~2.33.0"
+  },
+  "dependencies": {
+    "whatwg-url": "^6.4.0"
   }
 }

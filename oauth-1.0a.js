@@ -2,6 +2,10 @@ if (typeof(module) !== 'undefined' && typeof(exports) !== 'undefined') {
     module.exports = OAuth;
 }
 
+if (typeof(URL) === 'undefined') {
+    var URL = require('whatwg-url').URL;
+}
+
 /**
  * Constructor
  * @param {Object} opts consumer key and secret
@@ -194,7 +198,11 @@ OAuth.prototype.getSigningKey = function(token_secret) {
  * @return {String}
  */
 OAuth.prototype.getBaseUrl = function(url) {
-    return url.split('?')[0];
+    var parsed = new URL(url);
+
+    parsed.search = '';
+
+    return parsed.toString();
 };
 
 /**
