@@ -1,10 +1,12 @@
-if (typeof(module) !== 'undefined' && typeof(exports) !== 'undefined') {
-    module.exports = OAuth;
-}
+(function (root, factory) {
+    if (typeof module === 'object' && module.exports) {
+        module.exports = factory(require('whatwg-url').URL);
+    } else {
+        root.OAuth = factory(root.URL);
+    }
+}(typeof self !== 'undefined' ? self : this, function (URL) {
 
-if (typeof(URL) === 'undefined') {
-    var URL = require('whatwg-url').URL;
-}
+/* UMD factory start */
 
 /**
  * Constructor
@@ -383,3 +385,7 @@ OAuth.prototype.sortObject = function(data) {
 
     return result;
 };
+
+return OAuth;
+
+/* UMD factory end */}));
