@@ -17,6 +17,8 @@ declare class OAuth {
   signature_metho: string;
   version: string;
 
+  private _urlPattern: RegExp;
+
   constructor(opts?: OAuth.Options);
 
   /**
@@ -92,6 +94,14 @@ declare class OAuth {
    * Merge two object into a new one.
    */
   mergeObject<T, U>(obj1: T, obj2: U): T & U;
+
+  /**
+   * Parse an URL into its various component.
+   *
+   * Does no normalisation but throw if it encounters non-ascii char or if the
+   * URL does represent a http(s) request.
+   */
+  parseUrl(url: string): OAuth.URL;
 
   /**
    * Sort an object properties by keys.
@@ -187,6 +197,19 @@ declare namespace OAuth {
   export interface Token {
     key: string;
     secret: string;
+  }
+
+  /**
+   * URL components
+   */
+  export interface URL {
+    auth: string;
+    hash: string;
+    hostname: string;
+    pathname: string;
+    port: string;
+    protocol: 'http' | 'https';
+    search: string;
   }
 
 }
