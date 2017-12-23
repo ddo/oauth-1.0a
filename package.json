@@ -6,6 +6,7 @@
     "test": "make test"
   },
   "main": "oauth-1.0a.js",
+  "types": "oauth-1.0a.d.ts",
   "repository": "https://github.com/ddo/oauth-1.0a.git",
   "keywords": [
     "oauth",
