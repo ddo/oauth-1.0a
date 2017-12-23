@@ -7,17 +7,29 @@ var crypto = require('crypto');
     Can not use Header
 */
 describe("Linkedin Personal Consumer", function() {
-    this.timeout(10000);
+    var oauth;
 
-    var oauth = new OAuth({
-        consumer: {
-            key: process.env.LINKEDIN_CONSUMER_PUBLIC,
-            secret: process.env.LINKEDIN_CONSUMER_SECRET
-        },
-        signature_method: 'HMAC-SHA1',
-        hash_function: function(base_string, key) {
-            return crypto.createHmac('sha1', key).update(base_string).digest('base64');
+    beforeEach(function () {
+        if (
+            !process.env.LINKEDIN_CONSUMER_PUBLIC ||
+            !process.env.LINKEDIN_CONSUMER_SECRET
+        ) {
+            this.skip('LinkedIn secret not set.');
+            return;
         }
+
+        this.timeout(10000);
+
+        oauth = new OAuth({
+            consumer: {
+                key: process.env.LINKEDIN_CONSUMER_PUBLIC,
+                secret: process.env.LINKEDIN_CONSUMER_SECRET
+            },
+            signature_method: 'HMAC-SHA1',
+            hash_function: function(base_string, key) {
+                return crypto.createHmac('sha1', key).update(base_string).digest('base64');
+            }
+        });
     });
 
     describe("#Request Token", function() {

@@ -4,25 +4,39 @@ var OAuth   = require('../../oauth-1.0a');
 var crypto = require('crypto');
 
 describe("Twitter Personal Consumer", function() {
-    var oauth = new OAuth({
-        consumer: {
-            key: process.env.TWITTER_CONSUMER_PUBLIC,
-            secret: process.env.TWITTER_CONSUMER_SECRET
-        },
-        signature_method: 'HMAC-SHA1',
-        hash_function: function(base_string, key) {
-            return crypto.createHmac('sha1', key).update(base_string).digest('base64');
+    var oauth, token;
+
+    beforeEach(function () {
+        if (
+            !process.env.TWITTER_CONSUMER_PUBLIC ||
+            !process.env.TWITTER_CONSUMER_SECRET ||
+            !process.env.TWITTER_TOKEN_PUBLIC ||
+            !process.env.TWITTER_TOKEN_SECRET
+        ) {
+            this.skip('Twitter secret or token not set.');
+            return;
         }
-    });
 
-    var token = {
-        key: process.env.TWITTER_TOKEN_PUBLIC,
-        secret: process.env.TWITTER_TOKEN_SECRET
-    };
-
-    describe("#Get user timeline", function() {
         this.timeout(10000);
 
+        oauth = new OAuth({
+            consumer: {
+                key: process.env.TWITTER_CONSUMER_PUBLIC,
+                secret: process.env.TWITTER_CONSUMER_SECRET
+            },
+            signature_method: 'HMAC-SHA1',
+            hash_function: function(base_string, key) {
+                return crypto.createHmac('sha1', key).update(base_string).digest('base64');
+            }
+        });
+
+        token = {
+            key: process.env.TWITTER_TOKEN_PUBLIC,
+            secret: process.env.TWITTER_TOKEN_SECRET
+        };
+    });
+
+    describe("#Get user timeline", function() {
         var request = {
             url: 'https://api.twitter.com/1.1/statuses/user_timeline.json',
             method: 'GET'
@@ -43,8 +57,6 @@ describe("Twitter Personal Consumer", function() {
     });
 
     describe("#Get user timeline limit 5", function() {
-        this.timeout(10000);
-
         var request = {
             url: 'https://api.twitter.com/1.1/statuses/user_timeline.json',
             method: 'GET',
@@ -69,8 +81,6 @@ describe("Twitter Personal Consumer", function() {
     });
 
     describe("#Get user timeline limit 5 by url", function() {
-        this.timeout(10000);
-
         var request = {
             url: 'https://api.twitter.com/1.1/statuses/user_timeline.json?count=5',
             method: 'GET'
@@ -92,8 +102,6 @@ describe("Twitter Personal Consumer", function() {
     });
 
     describe("#Get user timeline by header", function() {
-        this.timeout(10000);
-
         var request = {
             url: 'https://api.twitter.com/1.1/statuses/user_timeline.json',
             method: 'GET'
@@ -115,8 +123,6 @@ describe("Twitter Personal Consumer", function() {
     });
 
     describe.skip("#Tweet", function() {
-        this.timeout(10000);
-
         var text = 'Testing oauth-1.0a';
 
         var request = {
@@ -146,8 +152,6 @@ describe("Twitter Personal Consumer", function() {
     });
 
     describe.skip("#Tweet by header", function() {
-        this.timeout(10000);
-
         var text = 'Testing oauth-1.0a';
 
         var request = {

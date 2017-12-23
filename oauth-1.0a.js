@@ -1,6 +1,12 @@
-if (typeof(module) !== 'undefined' && typeof(exports) !== 'undefined') {
-    module.exports = OAuth;
-}
+(function (root, factory) {
+    if (typeof module === 'object' && module.exports) {
+        module.exports = factory(require('whatwg-url').URL);
+    } else {
+        root.OAuth = factory(root.URL);
+    }
+}(typeof self !== 'undefined' ? self : this, function (URL) {
+
+/* UMD factory start */
 
 /**
  * Constructor
@@ -49,6 +55,24 @@ function OAuth(opts) {
 }
 
 /**
+ *
+ * @param {{url: string}} request request to assert
+ */
+OAuth.prototype.assertRequest = function(request) {
+    var url = request.url;
+    var parsed = new URL(url);
+    var withPort = parsed.port !== ''
+        ? parsed
+        : parsed.origin + ':' + (
+            parsed.protocol === 'http:' ? '80' : '443'
+        ) + parsed.pathname + parsed.search + parsed.hash;
+
+    if (url != parsed && url !== withPort) {
+        throw new Error('oauth-1.0a require the url to be encoded. You can use punycode for the domain.');
+    }
+}
+
+/**
  * OAuth request authorize
  * @param  {Object} request data
  * {
@@ -60,6 +84,8 @@ function OAuth(opts) {
  * @return {Object} OAuth Authorized data
  */
 OAuth.prototype.authorize = function(request, token) {
+    this.assertRequest(request);
+
     var oauth_data = {
         oauth_consumer_key: this.consumer.key,
         oauth_nonce: this.getNonce(),
@@ -194,7 +220,12 @@ OAuth.prototype.getSigningKey = function(token_secret) {
  * @return {String}
  */
 OAuth.prototype.getBaseUrl = function(url) {
-    return url.split('?')[0];
+    var parsed = new URL(url);
+
+    parsed.search = '';
+    parsed.hash = '';
+
+    return parsed.toString();
 };
 
 /**
@@ -375,3 +406,7 @@ OAuth.prototype.sortObject = function(data) {
 
     return result;
 };
+
+return OAuth;
+
+/* UMD factory end */}));
