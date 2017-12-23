@@ -3,7 +3,7 @@
   "version": "2.2.3",
   "description": "OAuth 1.0a Request Authorization for Node and Browser.",
   "scripts": {
-    "test": "make test"
+    "test": "mocha"
   },
   "main": "oauth-1.0a.js",
   "types": "oauth-1.0a.d.ts",
