@@ -4,17 +4,29 @@ var OAuth   = require('../../oauth-1.0a');
 var crypto = require('crypto');
 
 describe.skip("Openbank Personal Consumer", function() {
-    this.timeout(10000);
+    var oauth;
 
-    var oauth = new OAuth({
-        consumer: {
-            key: process.env.OPENBANK_CONSUMER_PUBLIC,
-            secret: process.env.OPENBANK_CONSUMER_SECRET
-        },
-        signature_method: 'HMAC-SHA256',
-        hash_function: function(base_string, key) {
-            return crypto.createHmac('sha256', key).update(base_string).digest('base64');
+    beforeEach(function () {
+        if (
+            !process.env.OPENBANK_CONSUMER_PUBLIC ||
+            !process.env.OPENBANK_CONSUMER_SECRET
+        ) {
+            this.skip('Openbank secret not set.');
+            return;
         }
+
+        this.timeout(10000);
+
+        oauth = new OAuth({
+            consumer: {
+                key: process.env.OPENBANK_CONSUMER_PUBLIC,
+                secret: process.env.OPENBANK_CONSUMER_SECRET
+            },
+            signature_method: 'HMAC-SHA256',
+            hash_function: function(base_string, key) {
+                return crypto.createHmac('sha256', key).update(base_string).digest('base64');
+            }
+        });
     });
 
     //need to send as header

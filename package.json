@@ -3,7 +3,7 @@
   "version": "2.2.3",
   "description": "OAuth 1.0a Request Authorization for Node and Browser.",
   "scripts": {
-    "test": "make test"
+    "test": "mocha"
   },
   "main": "oauth-1.0a.js",
   "types": "oauth-1.0a.d.ts",
@@ -20,10 +20,11 @@
   "author": "Ddo",
   "license": "MIT",
   "devDependencies": {
-    "mocha": "~1.17.0",
-    "chai": "~1.8.1",
-    "request": "~2.33.0",
-    "istanbul": "^0.2.7",
-    "coveralls": "^2.10.0"
+    "chai": "^4.1.2",
+    "coveralls": "^3.0.0",
+    "dotenv": "^4.0.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^4.0.1",
+    "request": "~2.33.0"
   }
 }
