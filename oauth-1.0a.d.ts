@@ -159,7 +159,7 @@ declare namespace OAuth {
     last_ampersand?: boolean;
     nonce_length?: number;
     parameter_seperator?: string;
-    realm: string;
+    realm?: string;
     signature_method?: string;
     version?: string;
   }
