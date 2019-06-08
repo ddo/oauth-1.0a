@@ -60,6 +60,10 @@ function OAuth(opts) {
  * @return {Object} OAuth Authorized data
  */
 OAuth.prototype.authorize = function(request, token) {
+    if(!token) {
+        token = {};
+    }
+
     var oauth_data = this._prepareSyncAuthorizationPart(request, token);
 
     if(request.includeBodyHash) {
@@ -85,6 +89,10 @@ OAuth.prototype.authorize = function(request, token) {
  * @return {Object} Promise to produce OAuth Authorized data
  */
 OAuth.prototype.promiseAuthorization = function(request, token) {
+    if(!token) {
+        token = {};
+    }
+
     var self = this;
     var oauth_data = this._prepareSyncAuthorizationPart(request, token);
 
@@ -113,10 +121,6 @@ OAuth.prototype._prepareSyncAuthorizationPart = function(request, token) {
         oauth_timestamp: this.getTimeStamp(),
         oauth_version: this.version
     };
-
-    if(!token) {
-        token = {};
-    }
 
     if(token.key !== undefined) {
         oauth_data.oauth_token = token.key;
