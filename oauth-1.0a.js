@@ -59,7 +59,7 @@ function OAuth(opts) {
  * @param  {Object} key and secret token
  * @return {Object} OAuth Authorized data
  */
-OAuth.prototype.authorize = function(request, token) {
+OAuth.prototype.authorize = function(request, token, verifier) {
     var oauth_data = {
         oauth_consumer_key: this.consumer.key,
         oauth_nonce: this.getNonce(),
@@ -82,6 +82,10 @@ OAuth.prototype.authorize = function(request, token) {
 
     if(request.includeBodyHash) {
       oauth_data.oauth_body_hash = this.getBodyHash(request, token.secret)
+    }
+
+    if(verifier) {
+      oauth_data.oauth_verifier = verifier;
     }
 
     oauth_data.oauth_signature = this.getSignature(request, token.secret, oauth_data);

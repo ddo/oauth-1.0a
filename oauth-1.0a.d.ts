@@ -135,6 +135,7 @@ declare namespace OAuth {
     oauth_version: string;
     oauth_token?: string;
     oauth_body_hash?: string;
+    oauth_verifier?: string;
   }
 
   /**
