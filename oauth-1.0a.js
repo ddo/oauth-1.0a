@@ -148,6 +148,11 @@ OAuth.prototype.getParameterString = function(request, oauth_data) {
     for(var i = 0; i < base_string_data.length; i++) {
         var key = base_string_data[i].key;
         var value = base_string_data[i].value;
+
+        // skip empty keys
+        if (key === '') {
+            continue;
+        }
         // check if the value is an array
         // this means that this key has multiple values
         if (value && Array.isArray(value)){
