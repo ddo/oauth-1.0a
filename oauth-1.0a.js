@@ -194,7 +194,18 @@ OAuth.prototype.getSigningKey = function(token_secret) {
  * @return {String}
  */
 OAuth.prototype.getBaseUrl = function(url) {
-    return url.split('?')[0];
+    var parsed = this.parseUrl(url);
+    var port = parsed.port;
+    var protocol = parsed.protocol.toLowerCase();
+
+    if (
+        (port === ':80' && protocol === 'http') ||
+        (port === ':443' && protocol === 'https')
+    ) {
+        parsed.port = '';
+    }
+
+    return parsed.protocol + '://' + parsed.auth + parsed.hostname + parsed.port + parsed.pathname;
 };
 
 /**
@@ -352,6 +363,36 @@ OAuth.prototype.mergeObject = function(obj1, obj2) {
         merged_obj[key] = obj2[key];
     }
     return merged_obj;
+};
+
+OAuth.prototype._urlPattern = /^(https?):\/\/([^:]+:[^@]+@)?([^:/?#]+)(\:\d+)?(\/[^?#]*)?(\?[^#]*)?(#.*)?$/;
+
+/**
+ * Parse an URL into its various component.
+ *
+ * Does no normalisation but throw if it encounters non-ascii char or if the
+ * URL does represent a http(s) request.
+ *
+ * @param {string} url Url to parse
+ * @returns {object}
+ */
+OAuth.prototype.parseUrl = function(url) {
+    var match = this._urlPattern.exec(url);
+    var components;
+
+    if (match == null || match.len < 8) {
+        throw new Error('Invalid URL: "' + url + '".');
+    }
+
+    return {
+        protocol: match[1],
+        auth: match[2] || '',
+        hostname: match[3],
+        port: match[4] || '',
+        pathname: match[5] || '',
+        search: match[6] || '',
+        hash: match[7] || ''
+    };
 };
 
 /**
