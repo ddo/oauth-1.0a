@@ -24,6 +24,7 @@ function OAuth(opts) {
     this.version             = opts.version || '1.0';
     this.parameter_seperator = opts.parameter_seperator || ', ';
     this.realm               = opts.realm;
+    this.headerWhitelist     = opts.headerWhitelist || [];
 
     if(typeof opts.last_ampersand === 'undefined') {
         this.last_ampersand = true;
@@ -301,7 +302,7 @@ OAuth.prototype.toHeader = function(oauth_data) {
     }
 
     for(var i = 0; i < sorted.length; i++) {
-        if (sorted[i].key.indexOf('oauth_') !== 0)
+        if (sorted[i].key.indexOf('oauth_') !== 0 && !this.headerWhitelist.includes(sorted[i].key))
             continue;
 
         header_value += this.percentEncode(sorted[i].key) + '="' + this.percentEncode(sorted[i].value) + '"' + this.parameter_seperator;
