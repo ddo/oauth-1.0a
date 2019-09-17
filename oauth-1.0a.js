@@ -60,6 +60,60 @@ function OAuth(opts) {
  * @return {Object} OAuth Authorized data
  */
 OAuth.prototype.authorize = function(request, token) {
+    if(!token) {
+        token = {};
+    }
+
+    var oauth_data = this._prepareSyncAuthorizationPart(request, token);
+
+    if(request.includeBodyHash) {
+      oauth_data.oauth_body_hash = this.getBodyHash(request, token.secret)
+    }
+
+    oauth_data.oauth_signature = this.getSignature(request, token.secret, oauth_data);
+
+    return oauth_data;
+};
+
+/**
+ * Promise for OAuth request authorize. It is required that
+ * oauth_body_hash and oauth_signature functions return
+ * promises.
+ * @param  {Object} request data
+ * {
+ *     method,
+ *     url,
+ *     data
+ * }
+ * @param  {Object} key and secret token
+ * @return {Object} Promise to produce OAuth Authorized data
+ */
+OAuth.prototype.promiseAuthorization = function(request, token) {
+    if(!token) {
+        token = {};
+    }
+
+    var self = this;
+    var oauth_data = this._prepareSyncAuthorizationPart(request, token);
+
+    var promise = Promise.resolve();
+    if(request.includeBodyHash) {
+      promise = promise.then(function() {
+          return self.getBodyHash(request, token.secret);
+      }).then(function(body_hash) {
+          oauth_data.oauth_body_hash = body_hash;
+      })
+    }
+
+    return promise.then(function() {
+        return self.getSignature(request, token.secret, oauth_data);
+    }).then(function(signature) {
+        oauth_data.oauth_signature = signature;
+        return oauth_data;
+    })
+};
+
+OAuth.prototype._prepareSyncAuthorizationPart = function(request, token) {
     var oauth_data = {
         oauth_consumer_key: this.consumer.key,
         oauth_nonce: this.getNonce(),
@@ -68,10 +122,6 @@ OAuth.prototype.authorize = function(request, token) {
         oauth_version: this.version
     };
 
-    if(!token) {
-        token = {};
-    }
-
     if(token.key !== undefined) {
         oauth_data.oauth_token = token.key;
     }
@@ -79,12 +129,6 @@ OAuth.prototype.authorize = function(request, token) {
     if(!request.data) {
         request.data = {};
     }
-
-    if(request.includeBodyHash) {
-      oauth_data.oauth_body_hash = this.getBodyHash(request, token.secret)
-    }
-
-    oauth_data.oauth_signature = this.getSignature(request, token.secret, oauth_data);
 
     return oauth_data;
 };
