@@ -14,7 +14,7 @@ declare class OAuth {
   nonce_length: number;
   parameter_seperator: string;
   realm: string;
-  signature_metho: string;
+  signature_method: string;
   version: string;
 
   constructor(opts?: OAuth.Options);
