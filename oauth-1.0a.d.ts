@@ -16,6 +16,7 @@ declare class OAuth {
   realm: string;
   signature_metho: string;
   version: string;
+  verifier: string;
 
   constructor(opts?: OAuth.Options);
 
