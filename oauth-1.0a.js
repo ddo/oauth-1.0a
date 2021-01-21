@@ -24,6 +24,7 @@ function OAuth(opts) {
     this.version             = opts.version || '1.0';
     this.parameter_seperator = opts.parameter_seperator || ', ';
     this.realm               = opts.realm;
+    this.verifier            = opts.verifier;
 
     if(typeof opts.last_ampersand === 'undefined') {
         this.last_ampersand = true;
@@ -67,6 +68,10 @@ OAuth.prototype.authorize = function(request, token) {
         oauth_timestamp: this.getTimeStamp(),
         oauth_version: this.version
     };
+
+    if(this.verifier) {
+        oauth_data.oauth_verifier = this.verifier;
+    }
 
     if(!token) {
         token = {};
