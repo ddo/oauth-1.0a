@@ -89,6 +89,22 @@ OAuth.prototype.authorize = function(request, token) {
     return oauth_data;
 };
 
+OAuth.prototype.authorizeAsync = function(request, token) {
+    return new Promise((resolve, reject) => {
+        var { oauth_signature: _discard, ...oauth_data_sync } = this.authorize(request, token);
+
+        this.getSignature(request, token.secret, oauth_data_sync)
+            .then((oauth_signature) => {
+                var oauth_data = {
+                    ...oauth_data_sync,
+                    oauth_signature,
+                };
+
+              resolve(oauth_data);
+            });
+    })
+}
+
 /**
  * Create a OAuth Signature
  * @param  {Object} request data
