@@ -59,7 +59,7 @@ function OAuth(opts) {
  * @param  {Object} key and secret token
  * @return {Object} OAuth Authorized data
  */
-OAuth.prototype.authorize = function(request, token) {
+OAuth.prototype.authorize = function(request, token, isAsync) {
     var oauth_data = {
         oauth_consumer_key: this.consumer.key,
         oauth_nonce: this.getNonce(),
@@ -80,18 +80,20 @@ OAuth.prototype.authorize = function(request, token) {
         request.data = {};
     }
 
-    if(request.includeBodyHash) {
-      oauth_data.oauth_body_hash = this.getBodyHash(request, token.secret)
-    }
+    if(!isAsync) {
+        if(request.includeBodyHash) {
+            oauth_data.oauth_body_hash = this.getBodyHash(request, token.secret)
+        }
 
-    oauth_data.oauth_signature = this.getSignature(request, token.secret, oauth_data);
+        oauth_data.oauth_signature = this.getSignature(request, token.secret, oauth_data);
+    }
 
     return oauth_data;
 };
 
 OAuth.prototype.authorizeAsync = function(request, token) {
-    return new Promise((resolve, reject) => {
-        var { oauth_signature: _discard, ...oauth_data_sync } = this.authorize(request, token);
+    return new Promise((resolve) => {
+        var oauth_data_sync = this.authorize(request, token, true);
 
         this.getSignature(request, token.secret, oauth_data_sync)
             .then((oauth_signature) => {
@@ -100,7 +102,15 @@ OAuth.prototype.authorizeAsync = function(request, token) {
                     oauth_signature,
                 };
 
-              resolve(oauth_data);
+                if(request.includeBodyHash) {
+                    oauth_data.oauth_body_hash = this.getBodyHash(request, token.secret)
+                        .then((hash) => {
+                            oauth_data.oauth_body_hash = hash;
+                            resolve(oauth_data);
+                        })
+                } else {
+                    resolve(oauth_data);
+                }
             });
     })
 }
