@@ -23,7 +23,8 @@ declare class OAuth {
    */
   authorize(
     request: OAuth.RequestOptions,
-    token?: OAuth.Token
+    token?: OAuth.Token,
+    verifier?: string
   ): OAuth.Authorization;
 
   /**
