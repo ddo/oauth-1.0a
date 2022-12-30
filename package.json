@@ -24,7 +24,7 @@
         "coveralls": "^3.0.3",
         "dotenv": "^8.0.0",
         "istanbul": "^0.4.5",
-        "mocha": "^6.1.4",
+        "mocha": "^10.2.0",
         "request": "^2.88.0"
     }
 }
