@@ -6,7 +6,6 @@ export as namespace OAuth;
 export = OAuth;
 
 declare class OAuth {
-
   body_hash_function: OAuth.BodyHashFunction;
   consumer: OAuth.Consumer;
   hash_function: OAuth.HashFunction;
@@ -22,17 +21,28 @@ declare class OAuth {
   /**
    * Sign a request.
    */
-  authorize(request: OAuth.RequestOptions, token?: OAuth.Token): OAuth.Authorization;
+  authorize(
+    request: OAuth.RequestOptions,
+    token?: OAuth.Token,
+    verifier?: string
+  ): OAuth.Authorization;
 
   /**
    * Generate the oauth signature (i.e. oauth_signature).
    */
-  getSignature(request: OAuth.RequestOptions, token_secret: string | undefined, oauth_data: OAuth.Data): string;
+  getSignature(
+    request: OAuth.RequestOptions,
+    token_secret: string | undefined,
+    oauth_data: OAuth.Data
+  ): string;
 
   /**
    * Generate the body signature (i.e. oauth_body_hash).
    */
-  getBodyHash(request: OAuth.RequestOptions, token_secret: string | undefined): string;
+  getBodyHash(
+    request: OAuth.RequestOptions,
+    token_secret: string | undefined
+  ): string;
 
   /**
    * Encode the request attributes.
@@ -44,7 +54,10 @@ declare class OAuth {
   /**
    * Encode the oauth data and the request parameter,
    */
-  getParameterString(request: OAuth.RequestOptions, oauth_data: OAuth.Data): string;
+  getParameterString(
+    request: OAuth.RequestOptions,
+    oauth_data: OAuth.Data
+  ): string;
 
   /**
    * Generate the signing key.
@@ -96,11 +109,12 @@ declare class OAuth {
   /**
    * Sort an object properties by keys.
    */
-  sortObject<O extends {[k: string]: any}, K extends string>(obj: O): Array<{key: keyof O, value: O[K]}>;
+  sortObject<O extends { [k: string]: any }, K extends string>(
+    obj: O
+  ): Array<{ key: keyof O; value: O[K] }>;
 }
 
 declare namespace OAuth {
-
   /**
    * OAuth data, including the signature.
    */
@@ -135,6 +149,7 @@ declare namespace OAuth {
     oauth_version: string;
     oauth_token?: string;
     oauth_body_hash?: string;
+    oauth_verifier?: string;
   }
 
   /**
@@ -188,5 +203,4 @@ declare namespace OAuth {
     key: string;
     secret: string;
   }
-
 }
