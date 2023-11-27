@@ -23,7 +23,7 @@ describe.skip("Openbank Personal Consumer", function() {
                 secret: process.env.OPENBANK_CONSUMER_SECRET
             },
             signature_method: 'HMAC-SHA256',
-            hash_function: function(base_string, key) {
+            hash_function: async function(base_string, key) {
                 return crypto.createHmac('sha256', key).update(base_string).digest('base64');
             }
         });
@@ -39,12 +39,12 @@ describe.skip("Openbank Personal Consumer", function() {
             }
         };
 
-        it("should be a valid response", function(done) {
+        it("should be a valid response", async function(done) {
             Request({
                 url:        request.url,
                 method:     request.method,
                 form:       request.data,
-                headers:    oauth.toHeader(oauth.authorize(request))
+                headers:    oauth.toHeader((await oauth.authorize(request)))
             }, function(err, res, body) {
                 expect(body).to.be.a('string');
 

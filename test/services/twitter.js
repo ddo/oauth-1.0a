@@ -42,11 +42,11 @@ describe("Twitter Personal Consumer", function() {
             method: 'GET'
         };
 
-        it("should be an array of tweets", function(done) {
+        it("should be an array of tweets", async function(done) {
             Request({
                 url: request.url,
                 method: request.method,
-                qs: oauth.authorize(request, token),
+                qs: (await oauth.authorize(request, token)),
                 json: true
             }, function(err, res, body) {
                 expect(err).to.be.a('null');
@@ -65,11 +65,11 @@ describe("Twitter Personal Consumer", function() {
             }
         };
 
-        it("should be an array of tweets (length 5)", function(done) {
+        it("should be an array of tweets (length 5)", async function(done) {
             Request({
                 url: request.url,
                 method: request.method,
-                qs: oauth.authorize(request, token),
+                qs: (await oauth.authorize(request, token)),
                 json: true
             }, function(err, res, body) {
                 expect(err).to.be.a('null');
@@ -86,11 +86,11 @@ describe("Twitter Personal Consumer", function() {
             method: 'GET'
         };
 
-        it("should be an array of tweets", function(done) {
+        it("should be an array of tweets", async function(done) {
             Request({
                 url: request.url,
                 method: request.method,
-                qs: oauth.authorize(request, token),
+                qs: (await oauth.authorize(request, token)),
                 json: true
             }, function(err, res, body) {
                 expect(err).to.be.a('null');
@@ -107,12 +107,12 @@ describe("Twitter Personal Consumer", function() {
             method: 'GET'
         };
 
-        it("should be an array of tweets", function(done) {
+        it("should be an array of tweets", async function(done) {
             Request({
                 url: request.url,
                 method: request.method,
                 qs: request.data,
-                headers: oauth.toHeader(oauth.authorize(request, token)),
+                headers: oauth.toHeader((await oauth.authorize(request, token))),
                 json: true
             }, function(err, res, body) {
                 expect(err).to.be.a('null');
@@ -133,11 +133,11 @@ describe("Twitter Personal Consumer", function() {
             }
         };
 
-        it("should be an success object", function(done) {
+        it("should be an success object", async function(done) {
             Request({
                 url: request.url,
                 method: request.method,
-                form: oauth.authorize(request, token),
+                form: (await oauth.authorize(request, token)),
                 json: true
             }, function(err, res, body) {
                 expect(body).to.have.property('entities');
@@ -162,12 +162,12 @@ describe("Twitter Personal Consumer", function() {
             }
         };
 
-        it("should be an success object", function(done) {
+        it("should be an success object", async function(done) {
             Request({
                 url: request.url,
                 method: request.method,
                 form: request.data,
-                headers: oauth.toHeader(oauth.authorize(request, token)),
+                headers: oauth.toHeader((await oauth.authorize(request, token))),
                 json: true
             }, function(err, res, body) {
                 expect(body).to.have.property('entities');

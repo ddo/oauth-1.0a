@@ -2,7 +2,7 @@ var expect = require('chai').expect;
 var OAuth = require('../../oauth-1.0a');
 var crypto = require('crypto');
 
-function hash_function_SHA1(base_string, key) {
+async function hash_function_SHA1(base_string, key) {
     return crypto.createHmac('sha1', key).update(base_string).digest('base64');
 }
 
@@ -40,8 +40,8 @@ describe("parameter_seperator option", function() {
             }
         };
 
-        it("should be equal to Twitter example", function() {
-            expect(oauth.toHeader(oauth.authorize(request, token))).to.have.property('Authorization', 'OAuth oauth_consumer_key="xvz1evFS4wEEPTGEFPHBog", oauth_nonce="kYjzVBB8Y0ZFabxSWbWovY3uYSQ2pTgmZeNu2VS4cg", oauth_signature="tnnArxj06cWHq44gCs1OSKk%2FjLY%3D", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1318622958", oauth_token="370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb", oauth_version="1.0"');
+        it("should be equal to Twitter example", async function() {
+            expect(oauth.toHeader((await oauth.authorize(request, token)))).to.have.property('Authorization', 'OAuth oauth_consumer_key="xvz1evFS4wEEPTGEFPHBog", oauth_nonce="kYjzVBB8Y0ZFabxSWbWovY3uYSQ2pTgmZeNu2VS4cg", oauth_signature="tnnArxj06cWHq44gCs1OSKk%2FjLY%3D", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1318622958", oauth_token="370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb", oauth_version="1.0"');
         });
     });
 
@@ -79,8 +79,8 @@ describe("parameter_seperator option", function() {
             }
         };
 
-        it("header should be correct", function() {
-            expect(oauth.toHeader(oauth.authorize(request, token))).to.have.property('Authorization', 'OAuth oauth_consumer_key="xvz1evFS4wEEPTGEFPHBog"-oauth_nonce="kYjzVBB8Y0ZFabxSWbWovY3uYSQ2pTgmZeNu2VS4cg"-oauth_signature="tnnArxj06cWHq44gCs1OSKk%2FjLY%3D"-oauth_signature_method="HMAC-SHA1"-oauth_timestamp="1318622958"-oauth_token="370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb"-oauth_version="1.0"');
+        it("header should be correct", async function() {
+            expect(oauth.toHeader((await oauth.authorize(request, token)))).to.have.property('Authorization', 'OAuth oauth_consumer_key="xvz1evFS4wEEPTGEFPHBog"-oauth_nonce="kYjzVBB8Y0ZFabxSWbWovY3uYSQ2pTgmZeNu2VS4cg"-oauth_signature="tnnArxj06cWHq44gCs1OSKk%2FjLY%3D"-oauth_signature_method="HMAC-SHA1"-oauth_timestamp="1318622958"-oauth_token="370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb"-oauth_version="1.0"');
         });
     });
 });

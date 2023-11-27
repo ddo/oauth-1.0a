@@ -150,11 +150,11 @@ describe("Flickr Personal Consumer", function() {
             }
         };
 
-        it("should be a valid response", function(done) {
+        it("should be a valid response", async function(done) {
             Request({
                 url: request.url,
                 method: request.method,
-                qs: oauth.authorize(request, token)
+                qs: (await oauth.authorize(request, token))
             }, function(err, res, body) {
                 expect(body).to.be.a('string');
                 expect(body).to.have.string('jsonFlickrApi');
@@ -181,11 +181,11 @@ describe("Flickr Personal Consumer", function() {
             }
         };
 
-        it("should be a valid response", function(done) {
+        it("should be a valid response", async function(done) {
             Request({
                 url: request.url,
                 method: request.method,
-                qs: oauth.authorize(request, token)
+                qs: (await oauth.authorize(request, token))
             }, function(err, res, body) {
                 expect(body).to.be.a('string');
                 expect(body).to.have.string('jsonFlickrApi');

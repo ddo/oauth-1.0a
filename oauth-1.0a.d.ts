@@ -22,24 +22,24 @@ declare class OAuth {
   /**
    * Sign a request.
    */
-  authorize(request: OAuth.RequestOptions, token?: OAuth.Token): OAuth.Authorization;
+  authorize(request: OAuth.RequestOptions, token?: OAuth.Token): Promise<OAuth.Authorization>;
 
   /**
    * Generate the oauth signature (i.e. oauth_signature).
    */
-  getSignature(request: OAuth.RequestOptions, token_secret: string | undefined, oauth_data: OAuth.Data): string;
+  getSignature(request: OAuth.RequestOptions, token_secret: string | undefined, oauth_data: OAuth.Data): Promise<string>;
 
   /**
    * Generate the body signature (i.e. oauth_body_hash).
    */
-  getBodyHash(request: OAuth.RequestOptions, token_secret: string | undefined): string;
+  getBodyHash(request: OAuth.RequestOptions, token_secret: string | undefined): Promise<string>;
 
   /**
    * Encode the request attributes.
    *
    * Base String = "<Method>&<Base Url>&<ParameterString>"
    */
-  getBaseString(request: OAuth.RequestOptions, oauth_data: OAuth.Data): string;
+  getBaseString(request: OAuth.RequestOptions, oauth_data: OAuth.Data): Promise<string>;
 
   /**
    * Encode the oauth data and the request parameter,
@@ -140,7 +140,7 @@ declare namespace OAuth {
   /**
    * Method used to hash the the OAuth and form/querystring data.
    */
-  export type HashFunction = (base_string: string, key: string) => string;
+  export type HashFunction = (base_string: string, key: string) => Promise<string>;
 
   /**
    * Authorization header.
