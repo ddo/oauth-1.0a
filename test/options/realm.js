@@ -2,12 +2,12 @@ var expect = require('chai').expect;
 var OAuth = require('../../oauth-1.0a');
 var crypto = require('crypto');
 
-function hash_function_SHA1(base_string, key) {
+async function hash_function_SHA1(base_string, key) {
     return crypto.createHmac('sha1', key).update(base_string).digest('base64');
 }
 
 describe("Realm", function() {
-    describe("HMAC-SHA1 signature method with multiple values", function() {
+    describe("HMAC-SHA1 signature method with multiple values", async function() {
         var oauth = new OAuth({
             consumer: {
                 key: "batch-dbc2cd8c-6ca8-463b-96e2-6d8683eac6fd",
@@ -39,7 +39,7 @@ describe("Realm", function() {
           }
         };
 
-        var result = oauth.authorize(request_data);
+        var result = await oauth.authorize(request_data);
         var result_header = oauth.toHeader(result);
 
         it("Header with realm should match", function() {

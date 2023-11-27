@@ -2,11 +2,11 @@ var expect = require('chai').expect;
 var OAuth = require('../../oauth-1.0a');
 var crypto = require('crypto');
 
-function hash_function_SHA1(base_string, key) {
+async function hash_function_SHA1(base_string, key) {
     return crypto.createHmac('sha1', key).update(base_string).digest('base64');
 }
 
-describe("Signature method", function() {
+describe("Signature method", async function() {
     describe("HMAC-SHA1 signature method with multiple values", function() {
         var oauth = new OAuth({
             consumer: {
@@ -37,7 +37,7 @@ describe("Signature method", function() {
           }
         };
 
-        var result = oauth.authorize(request_data);
+        var result = await oauth.authorize(request_data);
 
         it("Signature should match", function() {
             expect(result.oauth_signature).to.equal("ri0lfv4udd2uQmkg5cCPVqLruyk=");

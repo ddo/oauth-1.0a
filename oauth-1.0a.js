@@ -35,7 +35,7 @@ function OAuth(opts) {
     this.signature_method = opts.signature_method || 'PLAINTEXT';
 
     if(this.signature_method == 'PLAINTEXT' && !opts.hash_function) {
-        opts.hash_function = function(base_string, key) {
+        opts.hash_function = async function(base_string, key) {
             return key;
         }
     }
@@ -59,7 +59,7 @@ function OAuth(opts) {
  * @param  {Object} key and secret token
  * @return {Object} OAuth Authorized data
  */
-OAuth.prototype.authorize = function(request, token) {
+OAuth.prototype.authorize = async function(request, token) {
     var oauth_data = {
         oauth_consumer_key: this.consumer.key,
         oauth_nonce: this.getNonce(),
@@ -81,10 +81,10 @@ OAuth.prototype.authorize = function(request, token) {
     }
 
     if(request.includeBodyHash) {
-      oauth_data.oauth_body_hash = this.getBodyHash(request, token.secret)
+      oauth_data.oauth_body_hash = await this.getBodyHash(request, token.secret)
     }
 
-    oauth_data.oauth_signature = this.getSignature(request, token.secret, oauth_data);
+    oauth_data.oauth_signature = await this.getSignature(request, token.secret, oauth_data);
 
     return oauth_data;
 };
@@ -96,22 +96,22 @@ OAuth.prototype.authorize = function(request, token) {
  * @param  {Object} oauth_data   OAuth data
  * @return {String} Signature
  */
-OAuth.prototype.getSignature = function(request, token_secret, oauth_data) {
-    return this.hash_function(this.getBaseString(request, oauth_data), this.getSigningKey(token_secret));
+OAuth.prototype.getSignature = async function(request, token_secret, oauth_data) {
+    return await this.hash_function(this.getBaseString(request, oauth_data), this.getSigningKey(token_secret));
 };
 
 /**
  * Create a OAuth Body Hash
  * @param {Object} request data
  */
-OAuth.prototype.getBodyHash = function(request, token_secret) {
+OAuth.prototype.getBodyHash = async function(request, token_secret) {
   var body = typeof request.data === 'string' ? request.data : JSON.stringify(request.data)
 
   if (!this.body_hash_function) {
     throw new Error('body_hash_function option is required');
   }
 
-  return this.body_hash_function(body, this.getSigningKey(token_secret))
+  return await this.body_hash_function(body, this.getSigningKey(token_secret))
 };
 
 /**
